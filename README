@@ -1,6 +1,7 @@
-My vim configuration.  The rest is pulled from vimrc... It will always have the
-most up-to-date info, so check it rather than this README for details and
-references.
+My vim configuration. I put all of this in $HOME/.vim.  I then make a link from $HOME/.vim/vimrc to $HOME/.vimrc
+
+The rest is pulled from vimrc... It will always have the most up-to-date info,
+so check it rather than this README for details and references.
 
 Based on many different vimrc files including the one from Bram@vim.org as
 well as
