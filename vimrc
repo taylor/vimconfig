@@ -18,6 +18,7 @@
 "   Git Branch Info - http://www.vim.org/scripts/script.php?script_id=2258
 "   or
 "   http://lumberjaph.net/blog/index.php/2008/06/26/git-branch-everywhere/
+"   Gist.vim - http://www.vim.org/scripts/script.php?script_id=2423
 "
 " Also see
 "   gitdiff - http://www.vim.org/scripts/script.php?script_id=1846
@@ -173,6 +174,13 @@ nmap <LocalLeader>fb :FuzzyFinderBuffer<CR>
 nmap <LocalLeader>ff :FuzzyFinderFile<CR>
 " find in tag is ,ft
 nmap <LocalLeader>ft :FuzzyFinderTag<CR>
+
+" ---------------------------------------------------------------------------
+" Settings for gist.vim
+if has("mac")
+  let g:gist_clip_command = 'pbcopy'
+end
+let g:gist_detect_filetype = 1
 
 " ---------------------------------------------------------------------------
 " Settings for taglist.vim
