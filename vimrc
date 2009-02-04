@@ -119,6 +119,7 @@ end
 cmap w!! %!sudo tee > /dev/null %
 
 noremap <D-r> :!ruby %<CR>
+map <leader>r :!ruby %<CR>
 
 "Buffer next,previous (ctrl-{n,p})
 noremap  :bn<CR>
@@ -325,9 +326,13 @@ au BufWrite /private/tmp/crontab.* set nobackup
 au BufWrite /tmp/crontab.* set nowritebackup
 au BufWrite /tmp/crontab.* set nobackup
 
-au BufWrite ~/sw/etc/pass set nowritebackup
-au BufWrite ~/sw/etc/pass set nobackup
-au BufWrite ~/sw/etc/pass set noswapfile
+au BufWrite /Users/taylor/sw/etc/pass set nowritebackup
+au BufWrite /Users/taylor/sw/etc/pass set nobackup
+au BufWrite /Users/taylor/sw/etc/pass set noswapfile
+
+au BufWrite pass set nowritebackup
+au BufWrite pass set nobackup
+au BufWrite pass set noswapfile
 
 au BufWrite ~/work/catalis/*pass* set nowritebackup
 au BufWrite ~/work/catalis/*pass* set nobackup
