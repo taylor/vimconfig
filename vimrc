@@ -14,13 +14,17 @@
 "   rails.vim - http://www.vim.org/scripts/script.php?script_id=1567
 "   vim-ruby - http://vim-ruby.rubyforge.org/
 "     rubycomplete - http://www.vim.org/scripts/script.php?script_id=1662
+"   vim-cucumber - http://github.com/tpope/vim-cucumber
 "   SuperTab - http://www.vim.org/scripts/script.php?script_id=1643
 "   Git Branch Info - http://www.vim.org/scripts/script.php?script_id=2258
 "   or
 "   http://lumberjaph.net/blog/index.php/2008/06/26/git-branch-everywhere/
 "   Gist.vim - http://www.vim.org/scripts/script.php?script_id=2423
+"   tComment - Add comments to code -    http://www.vim.org/scripts/script.php?script_id=1173
+"   cucumber.vim - syntax etc for cucumber step and feature files
 "
 " Also see
+"   specky - http://projects.martini.nu/specky/ (RSpec integration)
 "   gitdiff - http://www.vim.org/scripts/script.php?script_id=1846
 "     or http://tekrat.com/2008/02/21/vim-diff/
 "   http://whynotwiki.com/Editing_Ruby_code_in_vim

@@ -1,0 +1,1 @@
+../depot/vim-cucumber/ftdetect/cucumber.vim
