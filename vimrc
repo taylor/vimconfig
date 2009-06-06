@@ -22,8 +22,10 @@
 "   Gist.vim - http://www.vim.org/scripts/script.php?script_id=2423
 "   tComment - Add comments to code -    http://www.vim.org/scripts/script.php?script_id=1173
 "   cucumber.vim - syntax etc for cucumber step and feature files
+"   vimtrac plugin - http://www.vim.org/scripts/script.php?script_id=2147 -  http://www.ascetinteractive.com.au/vimtrac
 "
 " Also see
+"   ruby test from vim - http://po-ru.com/diary/running-ruby-tests-from-vim/
 "   specky - http://projects.martini.nu/specky/ (RSpec integration)
 "   gitdiff - http://www.vim.org/scripts/script.php?script_id=1846
 "     or http://tekrat.com/2008/02/21/vim-diff/
@@ -47,6 +49,7 @@
 "   f<letter> / t<letter> - jump to next letter or before letter
 "   gv - highlight last visual
 "   gg=G - Indent the whole file
+"   gc - comment
 
 
 " first the disabled features due to security concerns
@@ -122,6 +125,9 @@ end
 " If I forgot to sudo vim a file, do that with :w!!
 cmap w!! %!sudo tee > /dev/null %
 
+"noremap <F5> :w<CR>
+"imap <F5> <ESC>:w<CR>
+
 noremap <D-r> :!ruby %<CR>
 map <leader>r :!ruby %<CR>
 
@@ -142,6 +148,13 @@ else
   map <LocalLeader>e :e <C-R>=expand("%:p:h") . "\\" <CR>
 endif
 
+
+" vim trac plugin
+
+
+let g:tracServerList = {}       
+source tracserverlist
+
 " ---------------------------------------------------------------------------
 " tabs
 " (LocalLeader is ",")
@@ -155,7 +168,7 @@ map <LocalLeader>tm :tabmove         " move a tab to a new location
 
 " fuzzy finder textmate
 if has("ruby")
-  map <leader>t :FuzzyFinderTextMate<CR>
+  map <leader>f :FuzzyFinderTextMate<CR>
 
   " Autocomplete
   autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
@@ -165,7 +178,7 @@ if has("ruby")
   "improve autocomplete menu color
   highlight Pmenu ctermbg=238 gui=bold
 else
-  map <leader>t :FuzzyFinderFile<CR>
+  map <leader>f :FuzzyFinderFile<CR>
 end
 
 " BufExplorer
