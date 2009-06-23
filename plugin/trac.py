@@ -633,7 +633,7 @@ class TracTicket(TracRPC):
         str_ticket += "*    Priority: " + ticket[3]["priority"]  + "\n"
         str_ticket += "*   Component: " + ticket[3]["component"] + "\n"
         str_ticket += "*   Milestone: " + ticket[3]["milestone"] + "\n"
-        str_ticket += "*     Version: " + ticket[3]["version"] + "\n"
+        if "version" in ticket[3]: str_ticket += "*     Version: " + ticket[3]["version"] + "\n"
         #look for session files 
         
         if self.session_is_present():
@@ -653,7 +653,9 @@ class TracTicket(TracRPC):
         import datetime
         for change in ticket_changelog:
             if change[4] != '':
-                my_time = datetime.datetime.fromtimestamp(change[0]).strftime("%a %d/%m/%Y %H:%M:%S")
+                print 'This is broken datetime.datetime.fromtimestamp(change[0]).strftime("%a %d/%m/%Y %H:%M:%S")'
+                #my_time = datetime.datetime.fromtimestamp(change[0]).strftime("%a %d/%m/%Y %H:%M:%S")
+                my_time = 'datetime broken'
                 #just mention if a ticket has been changed
                 brief = vim.eval('g:tracTicketBriefDescription')
                 if change[2] == 'comment':
