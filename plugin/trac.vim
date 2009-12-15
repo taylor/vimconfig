@@ -26,9 +26,10 @@
 " Name Of File: trac.vim , trac.py
 "  Description: Wiki Client to the Trac Project Manager (trac.edgewall.org)
 "   Maintainer: Michael Brown <michael <at> ascetinteractive.com>
+" Contributors: Brad Fritz
 "  Last Change:
 "          URL:
-"      Version: 0.3.4
+"      Version: 0.3.6
 "
 "        Usage:
 "
@@ -127,7 +128,7 @@ if g:tracServerList == {}
 endif
 
 if !has("python")
-    "call confirm('Trac.vim needs vim python 2.4.4 support. Wont load', 'OK')
+    call confirm('Trac.vim needs vim python 2.4.4 support. Wont load', 'OK')
     finish
 endif
 
@@ -144,7 +145,7 @@ python import sys
 python if sys.version_info[:3] < (2,4,4):vim.command('let g:tracPythonVersionFlag = 1')
 
 if exists('g:tracPythonVersionFlag')
-    "call confirm  ( "Trac.vim requires python 2.4.4 or later to work correctly" )
+    call confirm  ( "Trac.vim requires python 2.4.4 or later to work correctly" )
     finish
 endif
 
@@ -166,8 +167,7 @@ if !exists('g:tracSessionDirectory')
 endif
 
 if !exists('g:tracBrowser')
-    let g:tracBrowser = 'open'         " For Setting up Browser view (osx)
-    "let g:tracBrowser = 'lynx'         " For Setting up Browser view (terminal)
+    let g:tracBrowser = 'lynx'         " For Setting up Browser view (terminal)
     "let g:tracBrowser = 'firefox'     " For Setting up Browser view (linux gui  - not tested)
     "let g:tracBrowser = '"C:\Program Files\Mozilla Firefox\firefox.exe"' "GVim on Windows not tested
 endif

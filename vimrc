@@ -50,6 +50,7 @@
 "   gv - highlight last visual
 "   gg=G - Indent the whole file
 "   gc - comment
+"   ^c^c - slime
 
 
 " first the disabled features due to security concerns
@@ -67,6 +68,14 @@ set incsearch		" do incremental searching
 set backspace=indent,eol,start
 set noerrorbells
 set visualbell t_vb=          " Disable ALL bells
+
+" xterm title
+set title
+
+" Local configuration
+" set runtimepath=~/.vim,/etc/vim,/usr/share/vim/vimfiles
+" set runtimepath+=/usr/share/vim/addons,/usr/share/vim/vim61
+" set runtimepath+=/usr/share/vim/vimfiles/after,~/.vim/after
 
 " convert tabs to spaces. indent level is 2
 " filetype plugin indent on
@@ -119,7 +128,8 @@ if has("gui_running")
   set columns=140
   "set gfn=Monaco:h9
 else
-  colorscheme desert256
+  "colorscheme desert256
+  colorscheme desert
 end
 
 " If I forgot to sudo vim a file, do that with :w!!
@@ -150,10 +160,8 @@ endif
 
 
 " vim trac plugin
-
-
 let g:tracServerList = {}       
-source tracserverlist
+source ~/.vim/tracserverlist
 
 " ---------------------------------------------------------------------------
 " tabs
@@ -307,6 +315,7 @@ filetype on           " Enable filetype detection
 filetype indent on    " Enable filetype-specific indenting
 filetype plugin on    " Enable filetype-specific plugins
 
+
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
 
@@ -342,18 +351,120 @@ au BufWrite /private/tmp/crontab.* set nowritebackup
 au BufWrite /private/tmp/crontab.* set nobackup
 au BufWrite /tmp/crontab.* set nowritebackup
 au BufWrite /tmp/crontab.* set nobackup
+au BufWrite /dev/shm/taylortmp/* set nowritebackup
+au BufWrite /dev/shm/taylortmp/* set nobackup
 
-au BufWrite /Users/taylor/sw/etc/pass set nowritebackup
-au BufWrite /Users/taylor/sw/etc/pass set nobackup
-au BufWrite /Users/taylor/sw/etc/pass set noswapfile
+" We don't want a swap file and backup for these "private" files
+autocmd BufReadPre,FileReadPre ~/.mutt/private/* set viminfo=
+autocmd BufReadPre,FileReadPre ~/.mutt/private/* set noswapfile
+autocmd BufReadPre,FileReadPre ~/.mutt/private/* set nowritebackup
 
-au BufWrite pass set nowritebackup
-au BufWrite pass set nobackup
-au BufWrite pass set noswapfile
+autocmd BufReadPre,FileReadPre,BufWrite ~/.vim/tracserverlist set noswapfile
+autocmd BufReadPre,FileReadPre,BufWrite ~/.vim/tracserverlist set nobackup
+autocmd BufReadPre,FileReadPre,BufWrite ~/.vim/tracserverlist set nowritebackup
 
-au BufWrite ~/work/catalis/*pass* set nowritebackup
-au BufWrite ~/work/catalis/*pass* set nobackup
-au BufWrite ~/work/catalis/*pass* set noswapfile
+" au BufWrite /Users/taylor/sw/etc/pass set nowritebackup
+" au BufWrite /Users/taylor/sw/etc/pass set nobackup
+" au BufWrite /Users/taylor/sw/etc/pass set noswapfile
+
+" au BufWrite pass set nowritebackup
+" au BufWrite pass set nobackup
+" au BufWrite pass set noswapfile
+
+" au BufWrite ~/work/catalis/*pass* set nowritebackup
+" au BufWrite ~/work/catalis/*pass* set nobackup
+" au BufWrite ~/work/catalis/*pass* set noswapfile
+
+autocmd BufReadPre,FileReadPre,BufWrite *pass,pass,pass.* set noswapfile
+autocmd BufReadPre,FileReadPre,BufWrite *pass,pass,pass.* set nobackup
+autocmd BufReadPre,FileReadPre,BufWrite *pass,pass,pass.* set nowritebackup
 
 " set up syntax highlighting for my e-mail
-au BufRead,BufNewFile .followup,.article,.letter,/tmp/pico*,nn.*,snd.*,/tmp/mutt* :set ft=mail 
+au BufRead,BufNewFile .followup,.article,.letter,/tmp/pico*,nn.*,snd.*,/tmp/mutt*,sup.* :set ft=mail 
+
+
+" augroup encrypted
+" au!
+" autocmd BufReadPre,FileReadPre *.gpg,*.asc set viminfo=
+" autocmd BufReadPre,FileReadPre *.gpg,*.asc set noswapfile
+" autocmd BufReadPre,FileReadPre *.gpg set bin
+" autocmd BufReadPre,FileReadPre *.gpg,*.asc let ch_save = &ch|set ch=2
+" 
+" autocmd BufReadPost,FileReadPost *.gpg,*.asc '[,']!sh -c 'gpg --decrypt 2> /dev/null'
+" autocmd BufReadPost,FileReadPost *.gpg set nobin
+" autocmd BufReadPost,FileReadPost *.gpg,*.asc let &ch = ch_save|unlet ch_save
+" autocmd BufReadPost,FileReadPost *.gpg,*.asc execute ":doautocmd BufReadPost " . expand("%:r")
+" 
+" " autocmd BufWritePre,FileWritePre pass.gpg '[,']!sh -c 'gpg
+" " - --default-recipient-self -r chris@hippiehacker.org -e 2>/dev/null'
+" " autocmd BufWritePre,FileWritePre pass.asc '[,']!sh -c 'gpg
+" " - --default-recipient-self -r chris@hippiehacker.org -e -a 2>/dev/null'
+" 
+" autocmd BufWritePre,FileWritePre *.gpg '[,']!sh -c 'gpg - --default-recipient-self -e 2>/dev/null'
+" autocmd BufWritePre,FileWritePre *.asc '[,']!sh -c 'gpg - --default-recipient-self -ae 2>/dev/null'
+" 
+" autocmd BufWritePost,FileWritePost *.gpg,*.asc u
+" augroup END
+
+" augroup GPGASCII
+"   au!
+"   au BufReadPost *.asc :%!gpg -q -d
+"   au BufReadPost *.asc |redraw
+"   au BufWritePre *.asc :%!gpg -q -r taylor@codecafe.com -ae
+"   au BufWritePost *.asc u
+"   au VimLeave *.asc :!clear
+" augroup END
+
+" Transparent editing of gpg encrypted files.
+" Placed Public Domain by Wouter Hanegraaff
+" (asc support and sh -c"..." added by Osamu Aoki)
+augroup aencrypted
+  au!
+  " First make sure nothing is written to ~/.viminfo while editing
+  " an encrypted file.
+  autocmd BufReadPre,FileReadPre *.asc set viminfo=
+  " We don't want a swap file, as it writes unencrypted data to disk
+  autocmd BufReadPre,FileReadPre *.asc set noswapfile
+  " Switch to binary mode to read the encrypted file
+  autocmd BufReadPre,FileReadPre *.asc set bin
+  autocmd BufReadPre,FileReadPre *.asc let ch_save = &ch|set ch=2
+  autocmd BufReadPost,FileReadPost *.asc '[,']!sh -c "gpg --decrypt 2> /dev/null"
+  " Switch to normal mode for editing
+  autocmd BufReadPost,FileReadPost *.asc set nobin
+  autocmd BufReadPost,FileReadPost *.asc let &ch = ch_save|unlet ch_save
+  autocmd BufReadPost,FileReadPost *.asc execute ":doautocmd BufReadPost " . expand("%:r")
+
+  " Convert all text to encrypted text before writing
+  autocmd BufWriteCmd,FileWriteCmd *.asc '[,']!sh -c "gpg --default-recipient-self -ae 2> /dev/null"
+  "autocmd BufWriteCmd,FileWriteCmd *.asc u
+
+  "autocmd BufWriteCmd,FileWriteCmd *.asc execute "'[,']!sh -c \"gpg --default-recipient-self -ae 2> /dev/null\"" | u
+
+  " autocmd BufWritePre,FileWritePre *.asc '[,']!sh -c "gpg --default-recipient-self -ae > 2>/dev/null"
+  " Undo the encryption so we are back in the normal text, directly
+  " after the file has been written.
+  autocmd BufWritePost,FileWritePost *.asc u
+augroup END
+augroup bencrypted
+  au!
+  " First make sure nothing is written to ~/.viminfo while editing
+  " an encrypted file.
+  autocmd BufReadPre,FileReadPre *.gpg set viminfo=
+  " We don't want a swap file, as it writes unencrypted data to disk
+  autocmd BufReadPre,FileReadPre *.gpg set noswapfile
+  " Switch to binary mode to read the encrypted file
+  autocmd BufReadPre,FileReadPre *.gpg set bin
+  autocmd BufReadPre,FileReadPre *.gpg let ch_save = &ch|set ch=2
+  autocmd BufReadPost,FileReadPost *.gpg '[,']!sh -c "gpg --decrypt 2> /dev/null"
+  " Switch to normal mode for editing
+  autocmd BufReadPost,FileReadPost *.gpg set nobin
+  autocmd BufReadPost,FileReadPost *.gpg let &ch = ch_save|unlet ch_save
+  autocmd BufReadPost,FileReadPost *.gpg execute ":doautocmd BufReadPost " . expand("%:r")
+
+  " Convert all text to encrypted text before writing
+  autocmd BufWriteCmd,FileWriteCmd *.gpg '[,']!sh -c "gpg --default-recipient-self -e 2>/dev/null"
+  autocmd BufWritePre,FileWritePre *.gpg '[,']!sh -c "gpg --default-recipient-self -e 2>/dev/null"
+  " Undo the encryption so we are back in the normal text, directly
+  " after the file has been written.
+  autocmd BufWritePost,FileWritePost *.gpg u
+augroup END

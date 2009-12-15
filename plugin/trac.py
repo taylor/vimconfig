@@ -633,7 +633,9 @@ class TracTicket(TracRPC):
         str_ticket += "*    Priority: " + ticket[3]["priority"]  + "\n"
         str_ticket += "*   Component: " + ticket[3]["component"] + "\n"
         str_ticket += "*   Milestone: " + ticket[3]["milestone"] + "\n"
-        if "version" in ticket[3]: str_ticket += "*     Version: " + ticket[3]["version"] + "\n"
+
+        if ticket[3].has_key('version'):
+            str_ticket += "*     Version: " + ticket[3]["version"] + "\n"
         #look for session files 
         
         if self.session_is_present():
@@ -653,9 +655,12 @@ class TracTicket(TracRPC):
         import datetime
         for change in ticket_changelog:
             if change[4] != '':
-                print 'This is broken datetime.datetime.fromtimestamp(change[0]).strftime("%a %d/%m/%Y %H:%M:%S")'
-                #my_time = datetime.datetime.fromtimestamp(change[0]).strftime("%a %d/%m/%Y %H:%M:%S")
-                my_time = 'datetime broken'
+                if isinstance(change[0], xmlrpclib.DateTime):
+                    dt = datetime.datetime.strptime(change[0].value, "%Y%m%dT%H:%M:%S")
+                else:
+                    dt = datetime.datetime.fromtimestamp(change[0])
+
+                my_time = dt.strftime("%a %d/%m/%Y %H:%M:%S")
                 #just mention if a ticket has been changed
                 brief = vim.eval('g:tracTicketBriefDescription')
                 if change[2] == 'comment':
@@ -1142,8 +1147,8 @@ class TicketCommentWindow (VimWindow):
         VimWindow.__init__(self, name)
 
     def on_create(self):
-        vim.command('nnoremap <buffer> :w<cr> :python trac.add_comment()<cr>')
-        vim.command('nnoremap <buffer> :wq<cr> :python trac.add_comment()<cr>:python trac.normal_view()<cr>')
+        vim.command('nnoremap <buffer> :w<cr> :python trac.ticket.add_comment()<cr>')
+        vim.command('nnoremap <buffer> :wq<cr> :python trac.ticket.add_comment()<cr>:python trac.normal_view()<cr>')
         vim.command('nnoremap <buffer> :q<cr> :python trac.normal_view()<cr>')
         vim.command('setlocal syntax=wiki')
         vim.command('setlocal noswapfile')
