@@ -158,6 +158,7 @@ else
   map <LocalLeader>e :e <C-R>=expand("%:p:h") . "\\" <CR>
 endif
 
+source ~/.vim/vim7.vim
 
 " vim trac plugin
 let g:tracServerList = {}       
