@@ -28,6 +28,7 @@ Uses many plugins including
   Gist.vim - http://www.vim.org/scripts/script.php?script_id=2423
   tComment - Add comments to code -    http://www.vim.org/scripts/script.php?script_id=1173
   cucumber.vim - syntax etc for cucumber step and feature files
+  git-commit - format commit text to something a bit nicer for terminals...
 
 Also see
   specky - http://projects.martini.nu/specky/ (RSpec integration)
