@@ -8,6 +8,9 @@
 "
 "   FuzzyFinder_Textmate - http://weblog.jamisbuck.org/2008/10/10/coming-home-to-vim
 "   FuzzyFinder - http://www.vim.org/scripts/script.php?script_id=1984
+"   netrw - write over net - http://www.vim.org/scripts/script.php?script_id=1075
+"   ZoomWin -  http://vim.sourceforge.net/scripts/download_script.php?src_id=9865
+"   ToggleWinLayout - http://mysite.verizon.net/astronaut/vim/index.html#TWL
 "   taglist.vim - http://www.vim.org/scripts/script.php?script_id=273
 "   Buffer Explorer - http://www.vim.org/scripts/script.php?script_id=42 
 "   NERD Tree - http://www.vim.org/scripts/script.php?script_id=1658
@@ -144,6 +147,18 @@ map <leader>r :!ruby %<CR>
 "Buffer next,previous (ctrl-{n,p})
 noremap  :bn<CR>
 noremap  :bp<CR>
+
+
+"netrw stuff
+" http://mysite.verizon.net/astronaut/vim/index.html#NETRW
+" 
+let g:netrw_altv          = 1
+let g:netrw_fastbrowse    = 2
+let g:netrw_keepdir       = 0
+let g:netrw_liststyle     = 2
+let g:netrw_retmap        = 1
+let g:netrw_silent        = 1
+let g:netrw_special_syntax= 1
 
 " Don't use Ex mode, use Q for formatting
 map Q gq

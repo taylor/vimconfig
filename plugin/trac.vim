@@ -128,7 +128,8 @@ if g:tracServerList == {}
 endif
 
 if !has("python")
-    call confirm('Trac.vim needs vim python 2.4.4 support. Wont load', 'OK')
+    echo "Trac.vim needs vim python 2.4.4 support. Wont load!"
+    "call confirm('Trac.vim needs vim python 2.4.4 support. Wont load', 'OK')
     finish
 endif
 
