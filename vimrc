@@ -54,6 +54,10 @@
 "   gg=G - Indent the whole file
 "   gc - comment
 "   ^c^c - slime
+"
+"   From: trac.vim
+"               :TWOpen <WikiPage>    - Open the wiki View
+"               :TWSave "<Comment>"   - Saves the Active Wiki Page
 
 
 " first the disabled features due to security concerns
