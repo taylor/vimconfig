@@ -395,9 +395,9 @@ autocmd BufReadPre,FileReadPre,BufWrite ~/.vim/tracserverlist set nowritebackup
 " au BufWrite ~/work/catalis/*pass* set nobackup
 " au BufWrite ~/work/catalis/*pass* set noswapfile
 
-autocmd BufReadPre,FileReadPre,BufWrite *pass,pass,pass.* set noswapfile
-autocmd BufReadPre,FileReadPre,BufWrite *pass,pass,pass.* set nobackup
-autocmd BufReadPre,FileReadPre,BufWrite *pass,pass,pass.* set nowritebackup
+autocmd BufReadPre,FileReadPre,BufWrite *credentials*,*pass,pass,pass.* set noswapfile
+autocmd BufReadPre,FileReadPre,BufWrite *credentials*,*pass,pass,pass.* set nobackup
+autocmd BufReadPre,FileReadPre,BufWrite *credentials*,*pass,pass,pass.* set nowritebackup
 
 " set up syntax highlighting for my e-mail
 au BufRead,BufNewFile .followup,.article,.letter,/tmp/pico*,nn.*,snd.*,/tmp/mutt*,sup.* :set ft=mail 
