@@ -6,6 +6,7 @@
 "
 " Uses many plugins including
 "
+"   pathogen - https://github.com/tpope/vim-pathogen
 "   FuzzyFinder_Textmate - http://weblog.jamisbuck.org/2008/10/10/coming-home-to-vim
 "   FuzzyFinder - http://www.vim.org/scripts/script.php?script_id=1984
 "   netrw - write over net - http://www.vim.org/scripts/script.php?script_id=1075
@@ -58,6 +59,10 @@
 "   From: trac.vim
 "               :TWOpen <WikiPage>    - Open the wiki View
 "               :TWSave "<Comment>"   - Saves the Active Wiki Page
+
+
+"call pathogen#infect()
+silent! call pathogen#infect("~/.vim/depot")
 
 
 " first the disabled features due to security concerns
@@ -256,6 +261,7 @@ compiler ruby
 
 set laststatus=2
 
+
 if has('statusline')
         " Status line detail: (from Rafael Garcia-Suarez)
         " %f		file path
@@ -323,8 +329,8 @@ if has('statusline')
         "highlight StatusLineNC  ctermfg=White ctermbg=DarkBlue cterm=NONE
 endif
 
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
+ "For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
+ "let &guioptions = substitute(&guioptions, "t", "", "g")
 
 
 " This is an alternative that also works in block mode, but the deleted
