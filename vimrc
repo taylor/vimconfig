@@ -52,7 +52,7 @@
 "   gt/gT switching between tabs (or use mappings below)
 "   f<letter> / t<letter> - jump to next letter or before letter
 "   gv - highlight last visual
-"   gg=G - Indent the whole file
+"   gg=G - Indent the whole file *********
 "   gc - comment
 "   ^c^c - slime
 "
@@ -62,7 +62,7 @@
 
 
 "call pathogen#infect()
-silent! call pathogen#infect("~/.vim/depot")
+silent! call pathogen#infect("depot")
 
 
 " first the disabled features due to security concerns
@@ -117,6 +117,10 @@ endif
 "elseif $TERM =~ '^xterm-color'
 "        set t_Co=256 
 "endif
+
+if $TERM =~ '256'
+  set t_Co=256
+endif
  
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
@@ -128,20 +132,27 @@ endif
 if has("gui_running")
   set cursorline
   set background=dark 
+  let g:solarized_termcolors=256
   " ir_black looks great in macvim.  very close to textmate ir_black
   " if has("mac") could be used
-  colorscheme ir_black 
   "set noantialias
   set guioptions-=T        " no toolbar
   "colorscheme macvim      " macvim == win
+  "colorscheme ir_black 
+  colorscheme solarized
+  "colorscheme diablo3
   map <MouseMiddle> <esc>"*p " paste with middle button
   set nu " it always looks fine in macvim
   set lines=40
   set columns=140
   "set gfn=Monaco:h9
 else
+  set background=dark 
+  let g:solarized_termcolors=256
   "colorscheme desert256
-  colorscheme desert
+  "colorscheme desert
+  colorscheme ir_black 
+  "colorscheme solarized
 end
 
 " If I forgot to sudo vim a file, do that with :w!!
