@@ -1,1 +1,0 @@
-../depot/vim-cucumber/syntax/cucumber.vim

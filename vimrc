@@ -1,3 +1,9 @@
+" === README START ===
+" My vim configuration. I put all of this in $HOME/.vim.  I then make a link
+" from $HOME/.vim/vimrc to $HOME/.vimrc
+"
+" The rest is pulled from vimrc.
+"
 " Based on many different vimrc files including the one from Bram@vim.org as
 " well as
 " 
@@ -56,6 +62,7 @@
 "   gc - comment
 "   ^c^c - slime
 "
+" === README END ===
 "   From: trac.vim
 "               :TWOpen <WikiPage>    - Open the wiki View
 "               :TWSave "<Comment>"   - Saves the Active Wiki Page
@@ -63,7 +70,14 @@
 
 "call pathogen#infect()
 silent! call pathogen#infect("depot")
+"filetype off
+"call pathogen#runtime_append_all_bundles()
+"call pathogen#helptags()
+"filetype plugin indent on
 
+"set mouse=n
+"set clipboard+=unnamed  " Yanks go on clipboard instead.
+set timeoutlen=450  " Time to wait after ESC (default causes an annoying delay)
 
 " first the disabled features due to security concerns
 set modelines=0               " no modelines [http://www.guninski.com/vim1.html]
@@ -80,6 +94,7 @@ set incsearch		" do incremental searching
 set backspace=indent,eol,start
 set noerrorbells
 set visualbell t_vb=          " Disable ALL bells
+
 
 " xterm title
 set title
@@ -127,9 +142,13 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
+" Ctrl-/ will turn off highlight (until next search)
+map <silent> :noh<cr>
+
 "if !has("gui_running")
 "     colorscheme default
 if has("gui_running")
+  set mousehide  " Hide mouse after chars typed
   set cursorline
   set background=dark 
   let g:solarized_termcolors=256
@@ -149,9 +168,10 @@ if has("gui_running")
 else
   set background=dark 
   let g:solarized_termcolors=256
+  colorscheme default
   "colorscheme desert256
   "colorscheme desert
-  colorscheme ir_black 
+  "colorscheme ir_black 
   "colorscheme solarized
 end
 
@@ -212,7 +232,8 @@ map <LocalLeader>tm :tabmove         " move a tab to a new location
 
 " fuzzy finder textmate
 if has("ruby")
-  map <leader>f :FuzzyFinderTextMate<CR>
+  "map <leader>f :FuzzyFinderTextMate<CR>
+  map <leader>f :FufFile<CR>
 
   " Autocomplete
   autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
@@ -233,9 +254,12 @@ map <LocalLeader>bb :BufExplorer<CR>
 " find in buffer is ,fb
 nmap <LocalLeader>fb :FuzzyFinderBuffer<CR>
 " find in file is ,ff
-nmap <LocalLeader>ff :FuzzyFinderFile<CR>
+nmap <LocalLeader>ff :FufFileWithCurrentBufferDir<CR>
+"nmap <LocalLeader>ff :FufFile<CR>
+"nmap <LocalLeader>ff :FuzzyFinderFile<CR>
 " find in tag is ,ft
-nmap <LocalLeader>ft :FuzzyFinderTag<CR>
+nmap <LocalLeader>ft :FufBufferTag<CR>
+"nmap <LocalLeader>ft :FuzzyFinderTag<CR>
 
 " ---------------------------------------------------------------------------
 " Settings for gist.vim
@@ -255,17 +279,18 @@ let Tlist_Exit_OnlyWindow=1
 let Tlist_File_Fold_Auto_Close = 1
 
 if version >= 700
+  let NERDTreeIgnore=['\~$', '^\.git', '\.swp$', '\.DS_Store$']
+  let NERDTreeShowHidden=1
 
-let NERDTreeIgnore=['\~$', '^\.git', '\.swp$', '\.DS_Store$']
-let NERDTreeShowHidden=1
-
-" ,tt will toggle taglist on and off
-nmap <LocalLeader>tt :Tlist<cr>
-" ,nn will toggle NERDTree on and off
-nmap <LocalLeader>nn :NERDTreeToggle<cr>
-map <leader>n :NERDTreeToggle<cr>
-
+  " ,tt will toggle taglist on and off
+  nmap <LocalLeader>tt :Tlist<cr>
+  " ,nn will toggle NERDTree on and off
+  nmap <LocalLeader>nn :NERDTreeToggle<cr>
+  nmap ,nn :NERDTreeToggle<cr>
+  map <leader>n :NERDTreeToggle<cr>
 end
+
+nmap <LocalLeader>zz :ZoomWin<cr>
 
 compiler ruby
 "compiler python
@@ -353,6 +378,23 @@ filetype on           " Enable filetype detection
 filetype indent on    " Enable filetype-specific indenting
 filetype plugin on    " Enable filetype-specific plugins
 
+"Bundle "git://github.com/maba/vim-markdown-preview.git"
+map <buffer> <Leader>mp :Mm<CR>
+" Markdown -- added *.md, because I do not care about modula2
+augroup mkd
+  autocmd BufRead *.mkd      set ai formatoptions=tcroqn2 comments=n:> ft=markdown
+  autocmd BufRead *.md       set ai formatoptions=tcroqn2 comments=n:> ft=markdown
+  autocmd BufRead *.markdown set ai formatoptions=tcroqn2 comments=n:> ft=markdown
+augroup END
+
+" https://github.com/jtriley/vim-ghwiki-preview
+" \\g
+let ghwiki_preview_repo = "taylor/preview"
+let ghwiki_preview_browser = "open"
+
+
+"set cinoptions=:0,p0,t0
+"set cinwords=if,else,while,do,for,switch,case
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -413,96 +455,11 @@ autocmd BufReadPre,FileReadPre,BufWrite ~/.vim/tracserverlist set nowritebackup
 " au BufWrite ~/work/catalis/*pass* set nobackup
 " au BufWrite ~/work/catalis/*pass* set noswapfile
 
-autocmd BufReadPre,FileReadPre,BufWrite *credentials*,*authinfo*,.authinfo*,*pass,pass,pass.* set noswapfile
-autocmd BufReadPre,FileReadPre,BufWrite *credentials*,*authinfo*,.authinfo*,*pass,pass,pass.* set nobackup
-autocmd BufReadPre,FileReadPre,BufWrite *credentials*,*authinfo*,.authinfo*,*pass,pass,pass.* set nowritebackup
+autocmd BufReadPre,FileReadPre,BufWrite *credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private* set noswapfile
+autocmd BufReadPre,FileReadPre,BufWrite *credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private* set nobackup
+autocmd BufReadPre,FileReadPre,BufWrite *credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private* set nowritebackup
 
 " set up syntax highlighting for my e-mail
 au BufRead,BufNewFile .followup,.article,.letter,/tmp/pico*,nn.*,snd.*,/tmp/mutt*,sup.* :set ft=mail 
 
-
-" augroup encrypted
-" au!
-" autocmd BufReadPre,FileReadPre *.gpg,*.asc set viminfo=
-" autocmd BufReadPre,FileReadPre *.gpg,*.asc set noswapfile
-" autocmd BufReadPre,FileReadPre *.gpg set bin
-" autocmd BufReadPre,FileReadPre *.gpg,*.asc let ch_save = &ch|set ch=2
-" 
-" autocmd BufReadPost,FileReadPost *.gpg,*.asc '[,']!sh -c 'gpg --decrypt 2> /dev/null'
-" autocmd BufReadPost,FileReadPost *.gpg set nobin
-" autocmd BufReadPost,FileReadPost *.gpg,*.asc let &ch = ch_save|unlet ch_save
-" autocmd BufReadPost,FileReadPost *.gpg,*.asc execute ":doautocmd BufReadPost " . expand("%:r")
-" 
-" " autocmd BufWritePre,FileWritePre pass.gpg '[,']!sh -c 'gpg
-" " - --default-recipient-self -r chris@hippiehacker.org -e 2>/dev/null'
-" " autocmd BufWritePre,FileWritePre pass.asc '[,']!sh -c 'gpg
-" " - --default-recipient-self -r chris@hippiehacker.org -e -a 2>/dev/null'
-" 
-" autocmd BufWritePre,FileWritePre *.gpg '[,']!sh -c 'gpg - --default-recipient-self -e 2>/dev/null'
-" autocmd BufWritePre,FileWritePre *.asc '[,']!sh -c 'gpg - --default-recipient-self -ae 2>/dev/null'
-" 
-" autocmd BufWritePost,FileWritePost *.gpg,*.asc u
-" augroup END
-
-" augroup GPGASCII
-"   au!
-"   au BufReadPost *.asc :%!gpg -q -d
-"   au BufReadPost *.asc |redraw
-"   au BufWritePre *.asc :%!gpg -q -r taylor@codecafe.com -ae
-"   au BufWritePost *.asc u
-"   au VimLeave *.asc :!clear
-" augroup END
-
-" Transparent editing of gpg encrypted files.
-" Placed Public Domain by Wouter Hanegraaff
-" (asc support and sh -c"..." added by Osamu Aoki)
-augroup aencrypted
-  au!
-  " First make sure nothing is written to ~/.viminfo while editing
-  " an encrypted file.
-  autocmd BufReadPre,FileReadPre *.asc set viminfo=
-  " We don't want a swap file, as it writes unencrypted data to disk
-  autocmd BufReadPre,FileReadPre *.asc set noswapfile
-  " Switch to binary mode to read the encrypted file
-  autocmd BufReadPre,FileReadPre *.asc set bin
-  autocmd BufReadPre,FileReadPre *.asc let ch_save = &ch|set ch=2
-  autocmd BufReadPost,FileReadPost *.asc '[,']!sh -c "gpg --decrypt 2> /dev/null"
-  " Switch to normal mode for editing
-  autocmd BufReadPost,FileReadPost *.asc set nobin
-  autocmd BufReadPost,FileReadPost *.asc let &ch = ch_save|unlet ch_save
-  autocmd BufReadPost,FileReadPost *.asc execute ":doautocmd BufReadPost " . expand("%:r")
-
-  " Convert all text to encrypted text before writing
-  autocmd BufWriteCmd,FileWriteCmd *.asc '[,']!sh -c "gpg --default-recipient-self -ae 2> /dev/null"
-  "autocmd BufWriteCmd,FileWriteCmd *.asc u
-
-  "autocmd BufWriteCmd,FileWriteCmd *.asc execute "'[,']!sh -c \"gpg --default-recipient-self -ae 2> /dev/null\"" | u
-
-  " autocmd BufWritePre,FileWritePre *.asc '[,']!sh -c "gpg --default-recipient-self -ae > 2>/dev/null"
-  " Undo the encryption so we are back in the normal text, directly
-  " after the file has been written.
-  autocmd BufWritePost,FileWritePost *.asc u
-augroup END
-augroup bencrypted
-  au!
-  " First make sure nothing is written to ~/.viminfo while editing
-  " an encrypted file.
-  autocmd BufReadPre,FileReadPre *.gpg set viminfo=
-  " We don't want a swap file, as it writes unencrypted data to disk
-  autocmd BufReadPre,FileReadPre *.gpg set noswapfile
-  " Switch to binary mode to read the encrypted file
-  autocmd BufReadPre,FileReadPre *.gpg set bin
-  autocmd BufReadPre,FileReadPre *.gpg let ch_save = &ch|set ch=2
-  autocmd BufReadPost,FileReadPost *.gpg '[,']!sh -c "gpg --decrypt 2> /dev/null"
-  " Switch to normal mode for editing
-  autocmd BufReadPost,FileReadPost *.gpg set nobin
-  autocmd BufReadPost,FileReadPost *.gpg let &ch = ch_save|unlet ch_save
-  autocmd BufReadPost,FileReadPost *.gpg execute ":doautocmd BufReadPost " . expand("%:r")
-
-  " Convert all text to encrypted text before writing
-  autocmd BufWriteCmd,FileWriteCmd *.gpg '[,']!sh -c "gpg --default-recipient-self -e 2>/dev/null"
-  autocmd BufWritePre,FileWritePre *.gpg '[,']!sh -c "gpg --default-recipient-self -e 2>/dev/null"
-  " Undo the encryption so we are back in the normal text, directly
-  " after the file has been written.
-  autocmd BufWritePost,FileWritePost *.gpg u
-augroup END
+so ~/.vim/gpg_files
