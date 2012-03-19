@@ -4,3 +4,9 @@ backup/*
 .VimballRecord
 .*swp
 tracserverlist 
+spell
+depot/
+bundle
+download
+ARCHIVE/
+DISABLED

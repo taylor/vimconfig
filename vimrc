@@ -68,11 +68,15 @@
 "               :TWSave "<Comment>"   - Saves the Active Wiki Page
 
 
-"call pathogen#infect()
-silent! call pathogen#infect("depot")
-"filetype off
-"call pathogen#runtime_append_all_bundles()
-"call pathogen#helptags()
+if filereadable(expand("$HOME/.vim/autoload/pathogen.vim"))
+  "call pathogen#infect()
+  silent! call pathogen#infect("depot")
+
+  "filetype off
+  "call pathogen#runtime_append_all_bundles()
+  "call pathogen#helptags()
+endif
+
 "filetype plugin indent on
 
 "set mouse=n
@@ -86,11 +90,11 @@ let g:secure_modelines_modelines = 15 " 15 available modelines
 
 set nocompatible
 syntax on
-set history=200		" keep 50 lines of command line history
+set history=1000
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
-"set nu " line numbers
+set nu " line numbers
 set backspace=indent,eol,start
 set noerrorbells
 set visualbell t_vb=          " Disable ALL bells
@@ -116,7 +120,7 @@ set showfulltag               " show full completion tags
 "set wildmenu                  " menu has tab completion
 "set complete=.,w,b,u,U,t,i,d  " do lots of scanning on tab completion
 
-"set ttyfast
+set ttyfast
 
 set dictionary=/usr/share/dict/words
 
@@ -167,11 +171,13 @@ if has("gui_running")
   "set gfn=Monaco:h9
 else
   let g:solarized_termcolors=256
-  colorscheme default
+  "colorscheme default
   "colorscheme desert256
   "colorscheme desert
   "colorscheme ir_black 
+  colorscheme tir_black 
   "colorscheme solarized
+  "colorscheme ixxcolors
 end
 set background=dark 
 
