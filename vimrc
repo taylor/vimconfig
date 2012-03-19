@@ -133,9 +133,10 @@ endif
 "        set t_Co=256 
 "endif
 
-if $TERM =~ '256'
-  set t_Co=256
-endif
+"if $TERM =~ '256'
+"  set t_Co=256
+"endif
+set t_Co=256
  
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
@@ -150,7 +151,6 @@ map <silent> :noh<cr>
 if has("gui_running")
   set mousehide  " Hide mouse after chars typed
   set cursorline
-  set background=dark 
   let g:solarized_termcolors=256
   " ir_black looks great in macvim.  very close to textmate ir_black
   " if has("mac") could be used
@@ -166,7 +166,6 @@ if has("gui_running")
   set columns=140
   "set gfn=Monaco:h9
 else
-  set background=dark 
   let g:solarized_termcolors=256
   colorscheme default
   "colorscheme desert256
@@ -174,6 +173,7 @@ else
   "colorscheme ir_black 
   "colorscheme solarized
 end
+set background=dark 
 
 " If I forgot to sudo vim a file, do that with :w!!
 cmap w!! %!sudo tee > /dev/null %
@@ -364,6 +364,9 @@ if has('statusline')
         "highlight StatusLine    ctermfg=White ctermbg=DarkBlue cterm=bold
         "highlight StatusLineNC  ctermfg=White ctermbg=DarkBlue cterm=NONE
 endif
+
+"set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+
 
  "For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
  "let &guioptions = substitute(&guioptions, "t", "", "g")
