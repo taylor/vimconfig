@@ -131,17 +131,7 @@ else
   set backupdir=~/.vim/backup
 endif
 
-"if $TERM =~ '^xterm'
-"        set t_Co=256 
-"elseif $TERM =~ '^xterm-color'
-"        set t_Co=256 
-"endif
 
-"if $TERM =~ '256'
-"  set t_Co=256
-"endif
-set t_Co=256
- 
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
   set hlsearch
@@ -150,36 +140,47 @@ endif
 " Ctrl-/ will turn off highlight (until next search)
 map <silent> :noh<cr>
 
-"if !has("gui_running")
-"     colorscheme default
-if has("gui_running")
-  set mousehide  " Hide mouse after chars typed
-  set cursorline
-  let g:solarized_termcolors=256
-  " ir_black looks great in macvim.  very close to textmate ir_black
-  " if has("mac") could be used
-  "set noantialias
-  set guioptions-=T        " no toolbar
-  "colorscheme macvim      " macvim == win
-  "colorscheme ir_black 
-  colorscheme solarized
-  "colorscheme diablo3
-  map <MouseMiddle> <esc>"*p " paste with middle button
-  set nu " it always looks fine in macvim
-  set lines=40
-  set columns=140
-  "set gfn=Monaco:h9
-else
-  let g:solarized_termcolors=256
-  "colorscheme default
-  "colorscheme desert256
-  "colorscheme desert
-  "colorscheme ir_black 
-  colorscheme tir_black 
-  "colorscheme solarized
-  "colorscheme ixxcolors
-end
+
 set background=dark 
+if $TERM =~ '256'
+  set t_Co=256
+  "if !has("gui_running")
+  "     colorscheme default
+  if has("gui_running")
+    set mousehide  " Hide mouse after chars typed
+    set cursorline
+    let g:solarized_termcolors=256
+    " ir_black looks great in macvim.  very close to textmate ir_black
+    " if has("mac") could be used
+    "set noantialias
+    set guioptions-=T        " no toolbar
+    "colorscheme macvim      " macvim == win
+    "colorscheme ir_black 
+    colorscheme solarized
+    "colorscheme diablo3
+    map <MouseMiddle> <esc>"*p " paste with middle button
+    set nu " it always looks fine in macvim
+    set lines=40
+    set columns=140
+    "set gfn=Monaco:h9
+  else
+    let g:solarized_termcolors=256
+    "colorscheme default
+    "colorscheme desert256
+    "colorscheme desert
+    "colorscheme ir_black 
+    colorscheme tir_black 
+    "colorscheme solarized
+    "colorscheme ixxcolors
+  end
+elseif $TERM =~ '^xterm-'
+  set t_Co=16
+  colorscheme ir_black
+elseif $TERM =~ '^xterm$'
+  set t_Co=8
+  colorscheme ir_black
+endif
+"set t_Co=256
 
 " If I forgot to sudo vim a file, do that with :w!!
 cmap w!! %!sudo tee > /dev/null %
