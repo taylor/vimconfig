@@ -465,11 +465,14 @@ autocmd BufReadPre,FileReadPre,BufWrite ~/.vim/tracserverlist set nowritebackup
 " au BufWrite ~/work/catalis/*pass* set nobackup
 " au BufWrite ~/work/catalis/*pass* set noswapfile
 
-autocmd BufReadPre,FileReadPre,BufWrite *credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private* set noswapfile
-autocmd BufReadPre,FileReadPre,BufWrite *credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private* set nobackup
-autocmd BufReadPre,FileReadPre,BufWrite *credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private* set nowritebackup
+autocmd BufReadPre,FileReadPre,BufWrite *encrypted*,*credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private* set noswapfile
+autocmd BufReadPre,FileReadPre,BufWrite *encrypted*,*credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private* set nobackup
+autocmd BufReadPre,FileReadPre,BufWrite *encrypted*,*credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private* set nowritebackup
 
 " set up syntax highlighting for my e-mail
 au BufRead,BufNewFile .followup,.article,.letter,/tmp/pico*,nn.*,snd.*,/tmp/mutt*,sup.* :set ft=mail 
 
 "so ~/.vim/gpg_files
+
+"au FocusLost * silent! wa
+"au FocusGained * echo "welcome back"
