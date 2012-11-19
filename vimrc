@@ -33,6 +33,7 @@
 "   tComment - Add comments to code -    http://www.vim.org/scripts/script.php?script_id=1173
 "   cucumber.vim - syntax etc for cucumber step and feature files
 "   vimtrac plugin - http://www.vim.org/scripts/script.php?script_id=2147 -  http://www.ascetinteractive.com.au/vimtrac
+"   vim-detailed - a real 256 color scheme -- https://github.com/rking/vim-detailed
 "
 " Also see
 "   ruby test from vim - http://po-ru.com/diary/running-ruby-tests-from-vim/
@@ -169,9 +170,10 @@ if $TERM =~ '256'
     "colorscheme desert256
     "colorscheme desert
     "colorscheme ir_black 
-    colorscheme tir_black 
     "colorscheme solarized
     "colorscheme ixxcolors
+    "colorscheme tir_black 
+    colorscheme detailed
   end
 elseif $TERM =~ '^xterm-'
   set t_Co=16
@@ -469,6 +471,9 @@ autocmd BufReadPre,FileReadPre,BufWrite *encrypted*,*credentials*,*authinfo*,.au
 autocmd BufReadPre,FileReadPre,BufWrite *encrypted*,*credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private* set nobackup
 autocmd BufReadPre,FileReadPre,BufWrite *encrypted*,*credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private* set nowritebackup
 
+"autocmd BufNewFile,BufRead *.vb set ft=vbnet
+"autocmd BufNewFile,BufRead *.aspx set ft=aspnet
+
 " set up syntax highlighting for my e-mail
 au BufRead,BufNewFile .followup,.article,.letter,/tmp/pico*,nn.*,snd.*,/tmp/mutt*,sup.* :set ft=mail 
 
@@ -476,3 +481,9 @@ au BufRead,BufNewFile .followup,.article,.letter,/tmp/pico*,nn.*,snd.*,/tmp/mutt
 
 "au FocusLost * silent! wa
 "au FocusGained * echo "welcome back"
+
+
+" VimClojure
+let vimclojure#HighlightBuiltins = 1
+let vimclojure#ParenRainbow = 1
+
