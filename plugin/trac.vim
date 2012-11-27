@@ -122,7 +122,12 @@
 " Load trac.py either from the runtime directory (usually
 " /usr/local/share/vim/vim71/plugin/ if you're running Vim 7.1) or from the
 " home vim directory (usually ~/.vim/plugin/).
-"
+
+if exists("g:loaded_tracvim") || &cp
+  finish
+endif
+let g:loaded_tracvim = 1
+
 if g:tracServerList == {}
     finish
 endif
