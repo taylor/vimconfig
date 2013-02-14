@@ -3,7 +3,7 @@ backup/*
 .netrwhist
 .VimballRecord
 .*swp
-tracserverlist 
+tracserverlist
 spell
 depot/
 bundle
