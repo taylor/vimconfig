@@ -1,0 +1,13 @@
+for d in `ls` ; do
+  if [ -d $d ] ; then
+   cd $d
+   name=$(basename `pwd`)
+   if [ -d ".git" -o -f ".git" ] ; then
+     repourl=$(git config --local --get remote.origin.url)
+     echo "${name} -- ${repourl}"
+   else
+     echo "${name} -- UNKNOWN"
+   fi
+   cd - > /dev/null 
+  fi
+done
