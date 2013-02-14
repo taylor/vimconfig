@@ -487,3 +487,17 @@ au BufRead,BufNewFile .followup,.article,.letter,/tmp/pico*,nn.*,snd.*,/tmp/mutt
 let vimclojure#HighlightBuiltins = 1
 let vimclojure#ParenRainbow = 1
 
+set tags+=gems.tags 
+
+
+" spell checking
+" text & mutt files
+au BufNewFile,BufRead /tmp/mutt*,/tmp/cvs*,*.txt set tw=72 noai noshowmatch
+au BufNewFile,BufRead /tmp/mutt*,/tmp/cvs*,*.txt setlocal spell spelllang=en_us
+au BufNewFile,BufRead /tmp/mutt*,/tmp/cvs*,*.txt syntax off
+" git commits
+au BufNewFile,BufRead *.git/COMMIT_EDITMSG set tw=72 noai noshowmatch
+au BufNewFile,BufRead *.git/COMMIT_EDITMSG setlocal spell spelllang=en_us
+
+
+autocmd BufWinEnter * if line2byte(line("$") + 1) > 1000000 | syntax clear | endif
