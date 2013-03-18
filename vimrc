@@ -95,7 +95,7 @@ set history=1000
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
-set nu " line numbers
+"set nu " line numbers
 set backspace=indent,eol,start
 set noerrorbells
 set visualbell t_vb=          " Disable ALL bells
@@ -501,3 +501,5 @@ au BufNewFile,BufRead *.git/COMMIT_EDITMSG setlocal spell spelllang=en_us
 
 
 autocmd BufWinEnter * if line2byte(line("$") + 1) > 1000000 | syntax clear | endif
+
+set foldlevelstart=99
