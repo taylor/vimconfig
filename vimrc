@@ -68,6 +68,8 @@
 "
 " === README END ===
 
+set nocompatible
+
 let has_vundle=1
 if !filereadable(expand("$HOME/.vim/bundle/vundle/autoload/vundle.vim"))
     echo "Installing Vundle..."
@@ -78,16 +80,17 @@ if !filereadable(expand("$HOME/.vim/bundle/vundle/autoload/vundle.vim"))
     execute 'silent !git clone https://github.com/gmarik/vundle "' . expand('$HOME/.vim/bundle/vundle') . '"'
     let has_vundle=0
 endif
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-Bundle 'gmarik/vundle'
 
 if filereadable(expand("$HOME/.vim/bundle/vim-pathogen/autoload/pathogen.vim"))
   source ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
   call pathogen#infect()
 endif
+
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
 
 Bundle 'tpope/vim-pathogen'
 
@@ -162,7 +165,7 @@ if has_vundle == 0
     echo ""
     :BundleInstall
 endif
-"filetype plugin indent on
+filetype plugin indent on
 
 "set mouse=n
 "set clipboard+=unnamed  " Yanks go on clipboard instead.
