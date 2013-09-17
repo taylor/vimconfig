@@ -87,16 +87,9 @@ else
 endif " has("autocmd")
 
 " Don't write backup file for some files
-au BufWrite /private/tmp/crontab.* set nowritebackup
-au BufWrite /private/tmp/crontab.* set nobackup
-au BufWrite /tmp/crontab.* set nowritebackup
-au BufWrite /tmp/crontab.* set nobackup
-au BufWrite /dev/shm/* set nowritebackup
-au BufWrite /dev/shm/* set nobackup
+au BufWrite /private/tmp/crontab.*,/tmp/crontab.*,/dev/shm/* set nowritebackup nobackup
 
-autocmd BufReadPre,FileReadPre,BufWrite *credentials*,*authinfo*,.authinfo*,*pass,pass,pass.* set noswapfile
-autocmd BufReadPre,FileReadPre,BufWrite *credentials*,*authinfo*,.authinfo*,*pass,pass,pass.* set nobackup
-autocmd BufReadPre,FileReadPre,BufWrite *credentials*,*authinfo*,.authinfo*,*pass,pass,pass.* set nowritebackup
+autocmd BufReadPre,FileReadPre,BufWrite *credentials*,*authinfo*,.authinfo*,*pass,pass,pass.* set noswapfile nobackup nowritebackup
 
 " set up syntax highlighting for my e-mail
 au BufRead,BufNewFile .followup,.article,.letter,/tmp/pico*,nn.*,snd.*,mutt-*,sup.* :set ft=mail 

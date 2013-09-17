@@ -2,7 +2,22 @@
 " My vim configuration. I put all of this in $HOME/.vim.  I then make a link
 " from $HOME/.vim/vimrc to $HOME/.vimrc
 "
-" The rest is pulled from vimrc.
+" TIPS:
+"   "*p to paste from system copy buffer
+"   use ^P/^N in insert mode to complete words
+"   ^] to jump to tags
+"   ^W s,^W v - split windows
+"   gt/gT switching between tabs (or use mappings below)
+"   f<letter> / t<letter> - jump to next letter or before letter
+"   gv - highlight last visual
+"   gg=G - Indent the whole file *********
+"   gc - comment
+"   ^c^c - slime
+"   From: trac.vim
+"               :TWOpen <WikiPage>    - Open the wiki View
+"               :TWSave "<Comment>"   - Saves the Active Wiki Page
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Based on many different vimrc files including the one from Bram@vim.org as
 " well as
@@ -51,23 +66,7 @@
 "   Folding
 "     http://eigenclass.org/hiki/Usable+Ruby+folding+for+Vim
 "
-" TIPS:
-"   "*p to paste from system copy buffer
-"   use ^P/^N in insert mode to complete words
-"   ^] to jump to tags
-"   ^W s,^W v - split windows
-"   gt/gT switching between tabs (or use mappings below)
-"   f<letter> / t<letter> - jump to next letter or before letter
-"   gv - highlight last visual
-"   gg=G - Indent the whole file *********
-"   gc - comment
-"   ^c^c - slime
-"
 " === README END ===
-"   From: trac.vim
-"               :TWOpen <WikiPage>    - Open the wiki View
-"               :TWSave "<Comment>"   - Saves the Active Wiki Page
-
 
 if filereadable(expand("$HOME/.vim/autoload/pathogen.vim"))
   "call pathogen#infect()
@@ -165,7 +164,7 @@ if $TERM =~ '256'
     set columns=140
     "set gfn=Monaco:h9
   else
-    let g:solarized_termcolors=256
+    "let g:solarized_termcolors=256
     "colorscheme default
     "colorscheme desert256
     "colorscheme desert
@@ -173,16 +172,26 @@ if $TERM =~ '256'
     "colorscheme solarized
     "colorscheme ixxcolors
     "colorscheme tir_black 
-    colorscheme detailed
+    "colorscheme detailed
+    "colorscheme lettuce
+    colorscheme frood
   end
 elseif $TERM =~ '^xterm-'
   set t_Co=16
-  colorscheme ir_black
+  "colorscheme ir_black
+  colorscheme frood
 elseif $TERM =~ '^xterm$'
   set t_Co=8
-  colorscheme ir_black
+  "colorscheme ir_black
+  colorscheme frood
 endif
+
+"set background=dark 
 "set t_Co=256
+"colorscheme default
+"colorscheme detailed
+"colorscheme lettuce
+"colorscheme frood
 
 " If I forgot to sudo vim a file, do that with :w!!
 cmap w!! %!sudo tee > /dev/null %
@@ -198,16 +207,16 @@ noremap  :bn<CR>
 noremap  :bp<CR>
 
 
-"netrw stuff
-" http://mysite.verizon.net/astronaut/vim/index.html#NETRW
-" 
-let g:netrw_altv          = 1
-let g:netrw_fastbrowse    = 2
-let g:netrw_keepdir       = 0
-let g:netrw_liststyle     = 2
-let g:netrw_retmap        = 1
-let g:netrw_silent        = 1
-let g:netrw_special_syntax= 1
+""netrw stuff
+"" http://mysite.verizon.net/astronaut/vim/index.html#NETRW
+"" 
+"let g:netrw_altv          = 1
+"let g:netrw_fastbrowse    = 2
+"let g:netrw_keepdir       = 0
+"let g:netrw_liststyle     = 2
+"let g:netrw_retmap        = 1
+"let g:netrw_silent        = 1
+"let g:netrw_special_syntax= 1
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -222,11 +231,13 @@ else
   map <LocalLeader>e :e <C-R>=expand("%:p:h") . "\\" <CR>
 endif
 
-source ~/.vim/vim7.vim
+"source ~/.vim/vim7.vim
 
 " vim trac plugin
 let g:tracServerList = {}       
-source ~/.vim/tracserverlist
+if filereadable(expand("$HOME/.vim/tracserverlist"))
+  source ~/.vim/tracserverlist
+endif
 
 " ---------------------------------------------------------------------------
 " tabs
@@ -294,12 +305,13 @@ if version >= 700
   " ,tt will toggle taglist on and off
   nmap <LocalLeader>tt :Tlist<cr>
   " ,nn will toggle NERDTree on and off
-  nmap <LocalLeader>nn :NERDTreeToggle<cr>
-  nmap ,nn :NERDTreeToggle<cr>
-  map <leader>n :NERDTreeToggle<cr>
+  nmap <LocalLeader>nn :NERDTreeTabsToggle<cr>
+  nmap ,nn :NERDTreeTabsToggle<cr>
+  "map <leader>n :NERDTreeTabsToggle<cr>
 end
 
 nmap <LocalLeader>zz :ZoomWin<cr>
+nmap <c-w>z :ZoomWin<CR>
 
 compiler ruby
 "compiler python
@@ -394,16 +406,8 @@ filetype plugin on    " Enable filetype-specific plugins
 map <buffer> <Leader>mp :Mm<CR>
 " Markdown -- added *.md, because I do not care about modula2
 augroup mkd
-  autocmd BufRead *.mkd      set ai formatoptions=tcroqn2 comments=n:> ft=markdown
-  autocmd BufRead *.md       set ai formatoptions=tcroqn2 comments=n:> ft=markdown
-  autocmd BufRead *.markdown set ai formatoptions=tcroqn2 comments=n:> ft=markdown
+  autocmd BufRead *.mkd,*.md,*.markdown      set ai formatoptions=tcroqn2 comments=n:> ft=markdown
 augroup END
-
-" https://github.com/jtriley/vim-ghwiki-preview
-" \\g
-let ghwiki_preview_repo = "taylor/preview"
-let ghwiki_preview_browser = "open"
-
 
 "set cinoptions=:0,p0,t0
 "set cinwords=if,else,while,do,for,switch,case
@@ -439,37 +443,14 @@ else
 endif " has("autocmd")
 
 " Don't write backup file for some files
-au BufWrite /private/tmp/crontab.* set nowritebackup
-au BufWrite /private/tmp/crontab.* set nobackup
-au BufWrite /tmp/crontab.* set nowritebackup
-au BufWrite /tmp/crontab.* set nobackup
-au BufWrite /dev/shm/taylortmp/* set nowritebackup
-au BufWrite /dev/shm/taylortmp/* set nobackup
+au BufWrite /private/tmp/crontab.*,/tmp/crontab.*,/dev/shm/* set nowritebackup nobackup
 
 " We don't want a swap file and backup for these "private" files
-autocmd BufReadPre,FileReadPre ~/.mutt/private/* set viminfo=
-autocmd BufReadPre,FileReadPre ~/.mutt/private/* set noswapfile
-autocmd BufReadPre,FileReadPre ~/.mutt/private/* set nowritebackup
+autocmd BufReadPre,FileReadPre ~/.mutt/private/* set viminfo= noswapfile nowritebackup
 
-autocmd BufReadPre,FileReadPre,BufWrite ~/.vim/tracserverlist set noswapfile
-autocmd BufReadPre,FileReadPre,BufWrite ~/.vim/tracserverlist set nobackup
-autocmd BufReadPre,FileReadPre,BufWrite ~/.vim/tracserverlist set nowritebackup
+autocmd BufReadPre,FileReadPre,BufWrite ~/.vim/tracserverlist set noswapfile nobackup nowritebackup
 
-" au BufWrite /Users/taylor/sw/etc/pass set nowritebackup
-" au BufWrite /Users/taylor/sw/etc/pass set nobackup
-" au BufWrite /Users/taylor/sw/etc/pass set noswapfile
-
-" au BufWrite pass set nowritebackup
-" au BufWrite pass set nobackup
-" au BufWrite pass set noswapfile
-
-" au BufWrite ~/work/catalis/*pass* set nowritebackup
-" au BufWrite ~/work/catalis/*pass* set nobackup
-" au BufWrite ~/work/catalis/*pass* set noswapfile
-
-autocmd BufReadPre,FileReadPre,BufWrite *encrypted*,*credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private* set noswapfile
-autocmd BufReadPre,FileReadPre,BufWrite *encrypted*,*credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private* set nobackup
-autocmd BufReadPre,FileReadPre,BufWrite *encrypted*,*credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private* set nowritebackup
+autocmd BufReadPre,FileReadPre,BufWrite *encrypted*,*credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private*,.chef/* set viminfo= nowritebackup nobackup noswapfile
 
 "autocmd BufNewFile,BufRead *.vb set ft=vbnet
 "autocmd BufNewFile,BufRead *.aspx set ft=aspnet
@@ -499,7 +480,12 @@ au BufNewFile,BufRead /tmp/mutt*,/tmp/cvs*,*.txt syntax off
 au BufNewFile,BufRead *.git/COMMIT_EDITMSG set tw=72 noai noshowmatch
 au BufNewFile,BufRead *.git/COMMIT_EDITMSG setlocal spell spelllang=en_us
 
+" Elixir eex files until they fix syntax
+au BufNewFile,BufRead *.eex set ft=html
 
 autocmd BufWinEnter * if line2byte(line("$") + 1) > 1000000 | syntax clear | endif
 
 set foldlevelstart=99
+
+noremap  :bn<CR>
+noremap  :bp<CR>
