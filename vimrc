@@ -110,6 +110,7 @@ Bundle 'mjwall/clj-vim'
 Bundle 'elixir-lang/vim-elixir'
 Bundle 'carlosgaldino/elixir-snippets'
 Bundle 'heartsentwined/vim-ember-script'
+Bundle 'httplog'
 
 " Color schemes
 "colors-bnelson-less -- UNKNOWN
