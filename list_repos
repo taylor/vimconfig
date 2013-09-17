@@ -1,3 +1,5 @@
+cd ~/.vim/bundle
+
 for d in `ls` ; do
   if [ -d $d ] ; then
    cd $d

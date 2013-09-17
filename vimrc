@@ -94,6 +94,8 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-pathogen'
 
 "" === Development
+"Bundle 'msanders/snipmate.vim'
+"Bundle 'carlosgaldino/elixir-snippets'
 "Bundle 'ianremmler/comment' " Code comments
 "Bundle 'taylor/vim-ixxspec' " run specs in tmux
 "Bundle 'sunaku/vim-ruby-minitest'
@@ -109,7 +111,6 @@ Bundle 'tomtom/tcomment_vim'
 "TEMP Bundle 'taylor/vim-mswebdev' " ms web dev syntax crap
 Bundle 'mjwall/clj-vim'
 Bundle 'elixir-lang/vim-elixir'
-Bundle 'carlosgaldino/elixir-snippets'
 Bundle 'heartsentwined/vim-ember-script'
 Bundle 'httplog'
 
@@ -142,13 +143,12 @@ Bundle 'Floobits/floobits-vim'
 
 " Extra functionality
 Bundle 'taylor/vim-zoomwin'
-Bundle 'maba/vim-markdown-preview'
-Bundle 'kien/ctrlp.vim'
+"Bundle 'maba/vim-markdown-preview'
+"Bundle 'kien/ctrlp.vim'
 "utils-fuzzyfinder -- UNKNOWN
 Bundle 'mattn/gist-vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'msanders/snipmate.vim'
 "Bundle 'nixternal/taskwarrior-vim'
 
 "utils-l9 -- UNKNOWN
@@ -173,6 +173,7 @@ endif
 "   taglist.vim - http://www.vim.org/scripts/script.php?script_id=273
 let taglist_url = "http://vim.sourceforge.net/scripts/download_script.php?src_id=19574"
 if !filereadable(expand("$HOME/.vim/bundle/taglist/plugin/taglist.vim"))
+  echo "Installing taglist.vim"
   execute 'silent !mkdir -p "' . expand("$HOME/.vim/bundle/taglist/") . '"'
   execute 'silent !wget -O taglist.zip "' . taglist_url . '"'
   execute 'silent !unzip taglist.zip -d "' . expand("$HOME/.vim/bundle/taglist/") . '"'
