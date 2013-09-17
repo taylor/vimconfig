@@ -91,32 +91,33 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-
 Bundle 'tpope/vim-pathogen'
 
-" Development
-Bundle 'ianremmler/comment' " Code comments
-Bundle 'taylor/vim-ixxspec' " run specs in tmux
-Bundle 'sunaku/vim-ruby-minitest'
-Bundle 'duskhacker/sweet-rspec-vim'
-Bundle 'gregsexton/gitv' " gitk like thing for vim
+"" === Development
+"Bundle 'ianremmler/comment' " Code comments
+"Bundle 'taylor/vim-ixxspec' " run specs in tmux
+"Bundle 'sunaku/vim-ruby-minitest'
+"Bundle 'duskhacker/sweet-rspec-vim'
+"TEMP Bundle 'gregsexton/gitv' " gitk like thing for vim
 Bundle 'xaviershay/tslime.vim'
-Bundle 'actionshrimp/vim-xpath'
+"Bundle 'actionshrimp/vim-xpath'
+Bundle 'tomtom/tcomment_vim'
+"Bundle 'sukima/xmledit'
 
-" Syntax
-Bundle 'tpope/vim-cucumber' " cucumber syntax
-Bundle 'taylor/vim-mswebdev' " ms web dev syntax crap
+"" === Syntax
+"TEMP Bundle 'tpope/vim-cucumber' " cucumber syntax
+"TEMP Bundle 'taylor/vim-mswebdev' " ms web dev syntax crap
 Bundle 'mjwall/clj-vim'
 Bundle 'elixir-lang/vim-elixir'
 Bundle 'carlosgaldino/elixir-snippets'
 Bundle 'heartsentwined/vim-ember-script'
 Bundle 'httplog'
 
-" Color schemes
+"" === Color schemes
 "colors-bnelson-less -- UNKNOWN
 Bundle 'rking/vim-detailed'
 Bundle 'git@bitbucket.org:kisom/eink.vim.git'
-Bundle 'git://github.com/chmllr/vim-colorscheme-elrodeo.git'
+Bundle 'chmllr/vim-colorscheme-elrodeo'
 Bundle 'ianremmler/frood'
 Bundle 'nielsmadan/harlequin'
 "colors-ixxcolors -- UNKNOWN
@@ -126,13 +127,13 @@ Bundle 'plynch/maltese'
 "colors-smyck -- UNKNOWN
 Bundle 'altercation/vim-colors-solarized'
 "colors-syntaxless-kyle -- UNKNOWN
-Bundle 'scripts/tir_black'
+Bundle 'tir_black'
 "colors-vayn-schemes -- UNKNOWN
 
 " More look and feel
 Bundle 'Lokaltog/vim-powerline'
 
-" Pairing
+"" === Pairing
 Bundle 'Floobits/floobits-vim'
 "mail-notmuch -- UNKNOWN
 "misc-taylor -- UNKNOWN
@@ -145,19 +146,20 @@ Bundle 'maba/vim-markdown-preview'
 Bundle 'kien/ctrlp.vim'
 "utils-fuzzyfinder -- UNKNOWN
 Bundle 'mattn/gist-vim'
-"utils-l9 -- UNKNOWN
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'msanders/snipmate.vim'
-Bundle 'nixternal/taskwarrior-vim'
+"Bundle 'nixternal/taskwarrior-vim'
+
+"utils-l9 -- UNKNOWN
 "utils-tracwiki -- UNKNOWN
 Bundle 'http://repo.or.cz/r/vcscommand.git'
 Bundle 'nsmgr8/vitra'
 Bundle 'mattn/webapi-vim'
 Bundle 'smerrill/vagrant-vim'
 Bundle 'expelledboy/vim-erl-mode'
-Bundle 'tpope/vim-five.git'
-Bundle 'taq/vim-branch-info.git'
+"Bundle 'tpope/vim-five'
+Bundle 'taq/vim-branch-info'
 Bundle 'git://gitorious.org/vim-gnupg/vim-gnupg.git'
 "vim-pandoc -- 
 
@@ -166,6 +168,16 @@ if has_vundle == 0
     echo ""
     :BundleInstall
 endif
+
+"" === Bundles not available on github or else where
+"   taglist.vim - http://www.vim.org/scripts/script.php?script_id=273
+let taglist_url = "http://vim.sourceforge.net/scripts/download_script.php?src_id=19574"
+if !filereadable(expand("$HOME/.vim/bundle/taglist/plugin/taglist.vim"))
+  execute 'silent !mkdir -p "' . expand("$HOME/.vim/bundle/taglist/") . '"'
+  execute 'silent !wget -O taglist.zip "' . taglist_url . '"'
+  execute 'silent !unzip taglist.zip -d "' . expand("$HOME/.vim/bundle/taglist/") . '"'
+endif
+
 filetype plugin indent on
 
 "set mouse=n

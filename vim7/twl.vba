@@ -1,3 +1,8 @@
+" Vimball Archiver by Charles E. Campbell, Jr., Ph.D.
+UseVimball
+finish
+plugin/twl.vim	[[[1
+55
 " twl.vim: Toggle Window Layout
 "  Author: Charles E. Campbell, Jr.
 "  Date:   Nov 10, 2005
