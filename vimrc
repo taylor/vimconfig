@@ -154,12 +154,12 @@ Bundle 'msanders/snipmate.vim'
 "utils-l9 -- UNKNOWN
 "utils-tracwiki -- UNKNOWN
 Bundle 'http://repo.or.cz/r/vcscommand.git'
-Bundle 'nsmgr8/vitra'
-Bundle 'mattn/webapi-vim'
+"Bundle 'nsmgr8/vitra' "-- Trac UI
+"Bundle 'mattn/webapi-vim'
 Bundle 'smerrill/vagrant-vim'
 Bundle 'expelledboy/vim-erl-mode'
 "Bundle 'tpope/vim-five'
-Bundle 'taq/vim-branch-info'
+Bundle 'taq/vim-git-branch-info'
 Bundle 'git://gitorious.org/vim-gnupg/vim-gnupg.git'
 "vim-pandoc -- 
 
