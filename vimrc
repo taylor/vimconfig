@@ -2,6 +2,13 @@
 " My vim configuration. I put all of this in $HOME/.vim.  I then make a link
 " from $HOME/.vim/vimrc to $HOME/.vimrc
 "
+" INSTALL:
+"   * mkdir -p ~/.vim
+"   * put this vimrc in ~/.vim
+"   * ln -s ~/.vim/vimrc ~/.vimrc
+"   * start vim
+"     - it will install and run Vundle + other desired vim scripts
+"
 " TIPS:
 "   "*p to paste from system copy buffer
 "   use ^P/^N in insert mode to complete words
@@ -13,10 +20,19 @@
 "   gg=G - Indent the whole file *********
 "   gc - comment
 "   ^c^c - slime
-"   From: trac.vim
+"
+"   For trac.vim:
 "               :TWOpen <WikiPage>    - Open the wiki View
 "               :TWSave "<Comment>"   - Saves the Active Wiki Page
 "
+"   NERDTree and Taglist:
+"      " ,tt will toggle taglist on and off
+"      nmap <LocalLeader>tt :Tlist<cr>
+"      " ,nn will toggle NERDTree on and off
+"      nmap <LocalLeader>nn :NERDTreeToggle<cr>
+"      nmap ,nn :NERDTreeToggle<cr>
+"      map <leader>n :NERDTreeToggle<cr>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 

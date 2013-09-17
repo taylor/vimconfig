@@ -1,20 +1,43 @@
 # vim config info
 
-This could be out of date.  checkout the .vimrc
+This could be out of date.  checkout the [vimrc](vimrc)
 
 ---
+
+INSTALL:
+=======
+
+  * mkdir -p ~/.vim
+  * put this vimrc in ~/.vim
+  * ln -s ~/.vim/vimrc ~/.vimrc
+  * start vim
+    - it will install and run Vundle + other desired vim scripts
 
 TIPS:
 ====
 ```
-  "*p to paste from system copy buffer
-  use ^P/^N in insert mode to complete words
-  ^] to jump to tags
-  ^W s,^W v - split windows
-  gt/gT switching between tabs (or use mappings below)
-  f<letter> / t<letter> - jump to next letter or before letter
-  gv - highlight last visual
-  gg=G - Indent the whole file
+   "*p to paste from system copy buffer
+   use ^P/^N in insert mode to complete words
+   ^] to jump to tags
+   ^W s,^W v - split windows
+   gt/gT switching between tabs (or use mappings below)
+   f<letter> / t<letter> - jump to next letter or before letter
+   gv - highlight last visual
+   gg=G - Indent the whole file *********
+   gc - comment
+   ^c^c - slime
+
+   For trac.vim:
+               :TWOpen <WikiPage>    - Open the wiki View
+               :TWSave "<Comment>"   - Saves the Active Wiki Page
+
+   NERDTree and Taglist:
+      " ,tt will toggle taglist on and off
+      nmap <LocalLeader>tt :Tlist<cr>
+      " ,nn will toggle NERDTree on and off
+      nmap <LocalLeader>nn :NERDTreeToggle<cr>
+      nmap ,nn :NERDTreeToggle<cr>
+      map <leader>n :NERDTreeToggle<cr>
 ```
 
 ---
@@ -23,7 +46,7 @@ About my vim setup
 ==================
 
 My vim configuration. I put all of this in $HOME/.vim.  I then make a link from
-[$HOME/.vim/vimrc](.vimrc) to [$HOME/.vimrc](.vimrc)
+[$HOME/.vim/vimrc](vimrc) to [$HOME/.vimrc](vimrc)
 
 The rest is pulled from vimrc... It will always have the most up-to-date info,
 so check it rather than this README for details and references.
