@@ -68,15 +68,100 @@
 "
 " === README END ===
 
-if filereadable(expand("$HOME/.vim/autoload/pathogen.vim"))
-  "call pathogen#infect()
-  silent! call pathogen#infect("depot")
+let has_vundle=1
+if !filereadable(expand("$HOME/.vim/bundle/vundle/autoload/vundle.vim"))
+    echo "Installing Vundle..."
+    echo ""
+    if isdirectory(expand('$HOME/.vim/bundle')) == 0
+        call mkdir(expand('$HOME/.vim/bundle'), 'p')
+    endif
+    execute 'silent !git clone https://github.com/gmarik/vundle "' . expand('$HOME/.vim/bundle/vundle') . '"'
+    let has_vundle=0
+endif
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
-  "filetype off
-  "call pathogen#runtime_append_all_bundles()
-  "call pathogen#helptags()
+Bundle 'gmarik/vundle'
+
+if filereadable(expand("$HOME/.vim/bundle/vim-pathogen/autoload/pathogen.vim"))
+  source ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
+  call pathogen#infect()
 endif
 
+Bundle 'tpope/vim-pathogen'
+
+" Development
+Bundle 'ianremmler/comment' " Code comments
+Bundle 'taylor/vim-ixxspec' " run specs in tmux
+Bundle 'sunaku/vim-ruby-minitest'
+Bundle 'duskhacker/sweet-rspec-vim'
+Bundle 'gregsexton/gitv' " gitk like thing for vim
+Bundle 'xaviershay/tslime.vim'
+Bundle 'actionshrimp/vim-xpath'
+
+" Syntax
+Bundle 'tpope/vim-cucumber' " cucumber syntax
+Bundle 'taylor/vim-mswebdev' " ms web dev syntax crap
+Bundle 'mjwall/clj-vim'
+Bundle 'elixir-lang/vim-elixir'
+Bundle 'carlosgaldino/elixir-snippets'
+Bundle 'heartsentwined/vim-ember-script'
+
+" Color schemes
+"colors-bnelson-less -- UNKNOWN
+Bundle 'rking/vim-detailed'
+Bundle 'git@bitbucket.org:kisom/eink.vim.git'
+Bundle 'git://github.com/chmllr/vim-colorscheme-elrodeo.git'
+Bundle 'ianremmler/frood'
+Bundle 'nielsmadan/harlequin'
+"colors-ixxcolors -- UNKNOWN
+"colors-lettuce -- UNKNOWN
+Bundle 'plynch/maltese'
+"colors-misc -- UNKNOWN
+"colors-smyck -- UNKNOWN
+Bundle 'altercation/vim-colors-solarized'
+"colors-syntaxless-kyle -- UNKNOWN
+Bundle 'scripts/tir_black'
+"colors-vayn-schemes -- UNKNOWN
+
+" More look and feel
+Bundle 'Lokaltog/vim-powerline'
+
+" Pairing
+Bundle 'Floobits/floobits-vim'
+"mail-notmuch -- UNKNOWN
+"misc-taylor -- UNKNOWN
+"syntax-tmux -- UNKNOWN
+"utils-conque_2.3 -- UNKNOWN
+
+" Extra functionality
+Bundle 'taylor/vim-zoomwin'
+Bundle 'maba/vim-markdown-preview'
+Bundle 'kien/ctrlp.vim'
+"utils-fuzzyfinder -- UNKNOWN
+Bundle 'mattn/gist-vim'
+"utils-l9 -- UNKNOWN
+Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'msanders/snipmate.vim'
+Bundle 'nixternal/taskwarrior-vim'
+"utils-tracwiki -- UNKNOWN
+Bundle 'http://repo.or.cz/r/vcscommand.git'
+Bundle 'nsmgr8/vitra'
+Bundle 'mattn/webapi-vim'
+Bundle 'smerrill/vagrant-vim'
+Bundle 'expelledboy/vim-erl-mode'
+Bundle 'tpope/vim-five.git'
+Bundle 'taq/vim-branch-info.git'
+Bundle 'git://gitorious.org/vim-gnupg/vim-gnupg.git'
+"vim-pandoc -- 
+
+if has_vundle == 0
+    echo "Installing Bundles, please ignore key map error messages"
+    echo ""
+    :BundleInstall
+endif
 "filetype plugin indent on
 
 "set mouse=n
@@ -144,54 +229,26 @@ map <silent> :noh<cr>
 set background=dark 
 if $TERM =~ '256'
   set t_Co=256
-  "if !has("gui_running")
-  "     colorscheme default
   if has("gui_running")
     set mousehide  " Hide mouse after chars typed
     set cursorline
     let g:solarized_termcolors=256
-    " ir_black looks great in macvim.  very close to textmate ir_black
-    " if has("mac") could be used
-    "set noantialias
     set guioptions-=T        " no toolbar
-    "colorscheme macvim      " macvim == win
-    "colorscheme ir_black 
     colorscheme solarized
-    "colorscheme diablo3
     map <MouseMiddle> <esc>"*p " paste with middle button
     set nu " it always looks fine in macvim
     set lines=40
     set columns=140
-    "set gfn=Monaco:h9
   else
-    "let g:solarized_termcolors=256
-    "colorscheme default
-    "colorscheme desert256
-    "colorscheme desert
-    "colorscheme ir_black 
-    "colorscheme solarized
-    "colorscheme ixxcolors
-    "colorscheme tir_black 
-    "colorscheme detailed
-    "colorscheme lettuce
     colorscheme frood
   end
 elseif $TERM =~ '^xterm-'
   set t_Co=16
-  "colorscheme ir_black
   colorscheme frood
 elseif $TERM =~ '^xterm$'
   set t_Co=8
-  "colorscheme ir_black
   colorscheme frood
 endif
-
-"set background=dark 
-"set t_Co=256
-"colorscheme default
-"colorscheme detailed
-"colorscheme lettuce
-"colorscheme frood
 
 " If I forgot to sudo vim a file, do that with :w!!
 cmap w!! %!sudo tee > /dev/null %
@@ -402,7 +459,6 @@ filetype on           " Enable filetype detection
 filetype indent on    " Enable filetype-specific indenting
 filetype plugin on    " Enable filetype-specific plugins
 
-"Bundle "git://github.com/maba/vim-markdown-preview.git"
 map <buffer> <Leader>mp :Mm<CR>
 " Markdown -- added *.md, because I do not care about modula2
 augroup mkd
