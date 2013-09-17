@@ -1,0 +1,66 @@
+# vim config info
+
+
+this is out of date.  checkout the .vimrc
+
+---
+
+My vim configuration. I put all of this in $HOME/.vim.  I then make a link from
+[.vimrc]($HOME/.vim/vimrc) to $HOME/.vimrc
+
+The rest is pulled from vimrc... It will always have the most up-to-date info,
+so check it rather than this README for details and references.
+
+Based on many different vimrc files including the one from Bram@vim.org as
+well as
+
+  * http://dotfiles.org/~dakrone/.vimrc
+  * http://blog.infinitered.com/entries/show/9
+
+Uses many plugins including
+
+  * FuzzyFinder_Textmate - http://weblog.jamisbuck.org/2008/10/10/coming-home-to-vim
+  * FuzzyFinder - http://www.vim.org/scripts/script.php?script_id=1984
+  * taglist.vim - http://www.vim.org/scripts/script.php?script_id=273
+  * Buffer Explorer - http://www.vim.org/scripts/script.php?script_id=42 
+  * NERD Tree - http://www.vim.org/scripts/script.php?script_id=1658
+  * rails.vim - http://www.vim.org/scripts/script.php?script_id=1567
+  * vim-ruby - http://vim-ruby.rubyforge.org/
+  *   rubycomplete - http://www.vim.org/scripts/script.php?script_id=1662
+  * vim-cucumber - http://github.com/tpope/vim-cucumber
+  * SuperTab - http://www.vim.org/scripts/script.php?script_id=1643
+  * Git Branch Info - http://www.vim.org/scripts/script.php?script_id=2258
+  * or
+  * http://lumberjaph.net/blog/index.php/2008/06/26/git-branch-everywhere/
+  * Gist.vim - http://www.vim.org/scripts/script.php?script_id=2423
+  * tComment - Add comments to code -    http://www.vim.org/scripts/script.php?script_id=1173
+  * cucumber.vim - syntax etc for cucumber step and feature files
+  * git-commit - format commit text to something a bit nicer for terminals...
+  * vim-detailed - a real 256 color scheme
+
+Also see
+  * specky - http://projects.martini.nu/specky/ (RSpec integration)
+  * gitdiff - http://www.vim.org/scripts/script.php?script_id=1846
+     - or http://tekrat.com/2008/02/21/vim-diff/
+  * http://whynotwiki.com/Editing_Ruby_code_in_vim
+  * http://www.cuberick.com/2008/10/ruby-autocomplete-in-vim.html
+  * http://make-believe.org/in-words/post/vim-is-forever
+  * vcscommand.vim
+  * Python menus and syntax
+     - http://www.vim.org/scripts/script.php?script_id=30
+     - http://www.vim.org/scripts/script.php?script_id=790
+   
+  * Folding
+    - http://eigenclass.org/hiki/Usable+Ruby+folding+for+Vim
+
+TIPS:
+```
+  "*p to paste from system copy buffer
+  use ^P/^N in insert mode to complete words
+  ^] to jump to tags
+  ^W s,^W v - split windows
+  gt/gT switching between tabs (or use mappings below)
+  f<letter> / t<letter> - jump to next letter or before letter
+  gv - highlight last visual
+  gg=G - Indent the whole file
+```

@@ -18,55 +18,7 @@
 "               :TWSave "<Comment>"   - Saves the Active Wiki Page
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Based on many different vimrc files including the one from Bram@vim.org as
-" well as
-" 
-"   http://dotfiles.org/~dakrone/.vimrc
-"   http://blog.infinitered.com/entries/show/9
-"
-" Uses many plugins including
-"
-"   pathogen - https://github.com/tpope/vim-pathogen
-"   FuzzyFinder_Textmate - http://weblog.jamisbuck.org/2008/10/10/coming-home-to-vim
-"   FuzzyFinder - http://www.vim.org/scripts/script.php?script_id=1984
-"   netrw - write over net - http://www.vim.org/scripts/script.php?script_id=1075
-"   ZoomWin -  http://vim.sourceforge.net/scripts/download_script.php?src_id=9865
-"   ToggleWinLayout - http://mysite.verizon.net/astronaut/vim/index.html#TWL
-"   taglist.vim - http://www.vim.org/scripts/script.php?script_id=273
-"   Buffer Explorer - http://www.vim.org/scripts/script.php?script_id=42 
-"   NERD Tree - http://www.vim.org/scripts/script.php?script_id=1658
-"   rails.vim - http://www.vim.org/scripts/script.php?script_id=1567
-"   vim-ruby - http://vim-ruby.rubyforge.org/
-"     rubycomplete - http://www.vim.org/scripts/script.php?script_id=1662
-"   vim-cucumber - http://github.com/tpope/vim-cucumber
-"   SuperTab - http://www.vim.org/scripts/script.php?script_id=1643
-"   Git Branch Info - http://www.vim.org/scripts/script.php?script_id=2258
-"   or
-"   http://lumberjaph.net/blog/index.php/2008/06/26/git-branch-everywhere/
-"   Gist.vim - http://www.vim.org/scripts/script.php?script_id=2423
-"   tComment - Add comments to code -    http://www.vim.org/scripts/script.php?script_id=1173
-"   cucumber.vim - syntax etc for cucumber step and feature files
-"   vimtrac plugin - http://www.vim.org/scripts/script.php?script_id=2147 -  http://www.ascetinteractive.com.au/vimtrac
-"   vim-detailed - a real 256 color scheme -- https://github.com/rking/vim-detailed
-"
-" Also see
-"   ruby test from vim - http://po-ru.com/diary/running-ruby-tests-from-vim/
-"   specky - http://projects.martini.nu/specky/ (RSpec integration)
-"   gitdiff - http://www.vim.org/scripts/script.php?script_id=1846
-"     or http://tekrat.com/2008/02/21/vim-diff/
-"   http://whynotwiki.com/Editing_Ruby_code_in_vim
-"   http://www.cuberick.com/2008/10/ruby-autocomplete-in-vim.html
-"   http://make-believe.org/in-words/post/vim-is-forever
-"   vcscommand.vim
-"   Python menus and syntax
-"     http://www.vim.org/scripts/script.php?script_id=30
-"     http://www.vim.org/scripts/script.php?script_id=790
-"   
-"   Folding
-"     http://eigenclass.org/hiki/Usable+Ruby+folding+for+Vim
-"
-" === README END ===
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set nocompatible
 
@@ -105,6 +57,9 @@ Bundle 'xaviershay/tslime.vim'
 "Bundle 'actionshrimp/vim-xpath'
 Bundle 'tomtom/tcomment_vim'
 "Bundle 'sukima/xmledit'
+Bundle 'vim-scripts/Align'
+Bundle 'tpope/vim-fugitive'
+Bundle 'MarcWeber/vim-addon-mw-utils'
 
 "" === Syntax
 "TEMP Bundle 'tpope/vim-cucumber' " cucumber syntax
@@ -155,7 +110,8 @@ Bundle 'jistr/vim-nerdtree-tabs'
 "utils-tracwiki -- UNKNOWN
 Bundle 'http://repo.or.cz/r/vcscommand.git'
 "Bundle 'nsmgr8/vitra' "-- Trac UI
-"Bundle 'mattn/webapi-vim'
+"Bundle 'mattn/webapi-vim' "-- used by gist, vitra, etc
+Bundle 'mattn/webapi-vim'
 Bundle 'smerrill/vagrant-vim'
 Bundle 'expelledboy/vim-erl-mode'
 "Bundle 'tpope/vim-five'
@@ -179,7 +135,14 @@ if !filereadable(expand("$HOME/.vim/bundle/taglist/plugin/taglist.vim"))
   execute 'silent !unzip taglist.zip -d "' . expand("$HOME/.vim/bundle/taglist/") . '"'
 endif
 
-filetype plugin indent on
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+filetype on           " Enable filetype detection
+filetype indent on    " Enable filetype-specific indenting
+filetype plugin on    " Enable filetype-specific plugins
+
+set scrolloff=3 " lines above/below cursor
 
 "set mouse=n
 "set clipboard+=unnamed  " Yanks go on clipboard instead.
@@ -201,14 +164,8 @@ set backspace=indent,eol,start
 set noerrorbells
 set visualbell t_vb=          " Disable ALL bells
 
-
 " xterm title
 set title
-
-" Local configuration
-" set runtimepath=~/.vim,/etc/vim,/usr/share/vim/vimfiles
-" set runtimepath+=/usr/share/vim/addons,/usr/share/vim/vim61
-" set runtimepath+=/usr/share/vim/vimfiles/after,~/.vim/after
 
 " convert tabs to spaces. indent level is 2
 " filetype plugin indent on
@@ -305,8 +262,6 @@ else
   map <LocalLeader>e :e <C-R>=expand("%:p:h") . "\\" <CR>
 endif
 
-"source ~/.vim/vim7.vim
-
 " vim trac plugin
 let g:tracServerList = {}       
 if filereadable(expand("$HOME/.vim/tracserverlist"))
@@ -359,6 +314,8 @@ nmap <LocalLeader>ft :FufBufferTag<CR>
 " Settings for gist.vim
 if has("mac")
   let g:gist_clip_command = 'pbcopy'
+else
+  let g:gist_clip_command = 'xclip'
 end
 let g:gist_detect_filetype = 1
 
@@ -390,91 +347,13 @@ nmap <c-w>z :ZoomWin<CR>
 compiler ruby
 "compiler python
 
-set laststatus=2
-
-
-if has('statusline')
-        " Status line detail: (from Rafael Garcia-Suarez)
-        " %f		file path
-        " %y		file type between braces (if defined)
-        " %([%R%M]%)	read-only, modified and modifiable flags between braces
-        " %{'!'[&ff=='default_file_format']}
-        "			shows a '!' if the file format is not the platform
-        "			default
-        " %{'$'[!&list]}	shows a '*' if in list mode
-        " %{'~'[&pm=='']}	shows a '~' if in patchmode
-        " (%{synIDattr(synID(line('.'),col('.'),0),'name')})
-        "			only for debug : display the current syntax item name
-        " %=		right-align following items
-        " #%n		buffer number
-        " %l/%L,%c%V	line number, total number of lines, and column number
-        "function! SetStatusLineStyle()
-        "        if &stl == '' || &stl =~ 'synID'
-        "                let &stl="%f %y%([%R%M]%)%{'!'[&ff=='".&ff."']}%{'$'[!&list]}" .
-        "                                        \"%{'~'[&pm=='']}"                     .
-        "                                        \"%=#%n %l/%L,%c%V "                   .
-        "                                        \"git:%{call GitBranch()}"
-        "        else
-        "                let &stl="%f %y%([%R%M]%)%{'!'[&ff=='".&ff."']}%{'$'[!&list]}" .
-        "                                        \" (%{synIDattr(synID(line('.'),col('.'),0),'name')})" .
-        "                                        \"%=#%n %l/%L,%c%V "
-        "        endif
-        "endfunc
-        "call SetStatusLineStyle()
-
-        if has("ruby")
-          let g:git_branch_status_head_current=1
-          let g:git_branch_status_ignore_remotes=1
-          let g:git_branch_status_text=""
-        
-          function! SetStatusLineStyle()
-                  let &stl="%f %y "                       .
-                          \"%([%R%M]%)"                   .
-                          \"%#StatusLineNC#%{&ff=='unix'?'':&ff.'\ format'}%*" .
-                          \"%{'$'[!&list]}"               .
-                          \"%{'~'[&pm=='']}"              .
-                          \"%="                           .
-                          \"#%n %l/%L,%c%V "              .
-                          \"git:%{GitBranchInfoString()} "
-                          "\"%{rvm#statusline()} " .
-  "      \"%#StatusLineNC#%{GitBranchInfoString()}%* " .
-          endfunc
-        else
-          function! SetStatusLineStyle()
-                  let &stl="%f %y "                       .
-                          \"%([%R%M]%)"                   .
-                          \"%#StatusLineNC#%{&ff=='unix'?'':&ff.'\ format'}%*" .
-                          \"%{'$'[!&list]}"               .
-                          \"%{'~'[&pm=='']}"              .
-                          \"%="                           .
-                          \"#%n %l/%L,%c%V "
-          endfunc
-        end
-        call SetStatusLineStyle()
-
-        if has('title')
-                set titlestring=%t%(\ [%R%M]%)
-        endif
-
-        "highlight StatusLine    ctermfg=White ctermbg=DarkBlue cterm=bold
-        "highlight StatusLineNC  ctermfg=White ctermbg=DarkBlue cterm=NONE
-endif
-
-"set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-
-
  "For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
  "let &guioptions = substitute(&guioptions, "t", "", "g")
-
 
 " This is an alternative that also works in block mode, but the deleted
 " text is lost and it only works for putting the current register.
 "vnoremap p "_dp
 "
-
-filetype on           " Enable filetype detection
-filetype indent on    " Enable filetype-specific indenting
-filetype plugin on    " Enable filetype-specific plugins
 
 map <buffer> <Leader>mp :Mm<CR>
 " Markdown -- added *.md, because I do not care about modula2
@@ -487,7 +366,6 @@ augroup END
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
-
   " Enable file type detection.
   " Use the default filetype settings, so that mail gets 'tw' set to 72,
   " 'cindent' is on in C files, etc.
@@ -508,9 +386,7 @@ if has("autocmd")
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal g`\"" |
     \ endif
-
   augroup END
-
 else
   set autoindent		" always set autoindenting on
 endif " has("autocmd")
@@ -519,30 +395,17 @@ endif " has("autocmd")
 au BufWrite /private/tmp/crontab.*,/tmp/crontab.*,/dev/shm/* set nowritebackup nobackup
 
 " We don't want a swap file and backup for these "private" files
-autocmd BufReadPre,FileReadPre ~/.mutt/private/* set viminfo= noswapfile nowritebackup
-
-autocmd BufReadPre,FileReadPre,BufWrite ~/.vim/tracserverlist set noswapfile nobackup nowritebackup
-
-autocmd BufReadPre,FileReadPre,BufWrite *encrypted*,*credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private*,.chef/* set viminfo= nowritebackup nobackup noswapfile
-
-"autocmd BufNewFile,BufRead *.vb set ft=vbnet
-"autocmd BufNewFile,BufRead *.aspx set ft=aspnet
+autocmd BufReadPre,FileReadPre,BufWrite *encrypted*,*credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private*,.chef/*,~/.mutt/private/*,~/.vim/tracserverlist \
+  set viminfo= nowritebackup nobackup noswapfile
 
 " set up syntax highlighting for my e-mail
 au BufRead,BufNewFile .followup,.article,.letter,/tmp/pico*,nn.*,snd.*,/tmp/mutt*,sup.* :set ft=mail 
-
-"so ~/.vim/gpg_files
-
-"au FocusLost * silent! wa
-"au FocusGained * echo "welcome back"
-
 
 " VimClojure
 let vimclojure#HighlightBuiltins = 1
 let vimclojure#ParenRainbow = 1
 
 set tags+=gems.tags 
-
 
 " spell checking
 " text & mutt files
@@ -560,5 +423,7 @@ autocmd BufWinEnter * if line2byte(line("$") + 1) > 1000000 | syntax clear | end
 
 set foldlevelstart=99
 
-noremap  :bn<CR>
-noremap  :bp<CR>
+"noremap  :bn<CR>
+"noremap  :bp<CR>
+
+so ~/.vim/vimrc-statusline
