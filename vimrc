@@ -60,10 +60,18 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-pathogen'
 
+"" === Utils
+Bundle 'MarcWeber/vim-addon-mw-utils'
+
 "" === Development
+Bundle 'scrooloose/syntastic'
 "Bundle 'msanders/snipmate.vim'
+"Bundle 'garbas/vim-snipmate'
+"Bundle 'MarcWebe/UltiSnips'
+Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
+Bundle 'tomtom/tlib_vim'
 "Bundle 'carlosgaldino/elixir-snippets'
-"Bundle 'ianremmler/comment' " Code comments
 "Bundle 'taylor/vim-ixxspec' " run specs in tmux
 "Bundle 'sunaku/vim-ruby-minitest'
 "Bundle 'duskhacker/sweet-rspec-vim'
@@ -71,10 +79,12 @@ Bundle 'tpope/vim-pathogen'
 Bundle 'xaviershay/tslime.vim'
 "Bundle 'actionshrimp/vim-xpath'
 Bundle 'tomtom/tcomment_vim'
+"Bundle 'ianremmler/comment' " Code comments
+"Bundle 'scrooloose/nerdcommenter'
 "Bundle 'sukima/xmledit'
 Bundle 'vim-scripts/Align'
+" Git
 Bundle 'tpope/vim-fugitive'
-Bundle 'MarcWeber/vim-addon-mw-utils'
 
 "" === Syntax
 "TEMP Bundle 'tpope/vim-cucumber' " cucumber syntax
@@ -99,10 +109,13 @@ Bundle 'plynch/maltese'
 Bundle 'altercation/vim-colors-solarized'
 "colors-syntaxless-kyle -- UNKNOWN
 Bundle 'tir_black'
+Bundle 'nanotech/jellybeans.vim'
 "colors-vayn-schemes -- UNKNOWN
 
 " More look and feel
-Bundle 'Lokaltog/vim-powerline'
+"Bundle 'Lokaltog/vim-powerline'
+Bundle 'itchyny/lightline.vim'
+Bundle 'itchyny/landscape.vim'
 
 "" === Pairing
 Bundle 'Floobits/floobits-vim'
@@ -112,9 +125,10 @@ Bundle 'Floobits/floobits-vim'
 "utils-conque_2.3 -- UNKNOWN
 
 " Extra functionality
+"Bundle 'Valloric/YouCompleteMe'
 Bundle 'taylor/vim-zoomwin'
 "Bundle 'maba/vim-markdown-preview'
-"Bundle 'kien/ctrlp.vim'
+Bundle 'kien/ctrlp.vim'
 "utils-fuzzyfinder -- UNKNOWN
 Bundle 'mattn/gist-vim'
 Bundle 'scrooloose/nerdtree'
@@ -153,6 +167,8 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+set nocompatible
+syntax on
 filetype on           " Enable filetype detection
 filetype indent on    " Enable filetype-specific indenting
 filetype plugin on    " Enable filetype-specific plugins
@@ -168,8 +184,9 @@ set modelines=0               " no modelines [http://www.guninski.com/vim1.html]
 let g:secure_modelines_verbose=0 " securemodelines vimscript
 let g:secure_modelines_modelines = 15 " 15 available modelines
 
-set nocompatible
-syntax on
+
+set splitbelow " split below w/focus
+set splitright " split right w/focus
 set history=1000
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
@@ -215,6 +232,10 @@ endif
 map <silent> :noh<cr>
 
 
+" Move faster
+map <C-j> <C-d>
+map <C-k> <C-u>
+
 set background=dark 
 if $TERM =~ '256'
   set t_Co=256
@@ -229,11 +250,11 @@ if $TERM =~ '256'
     set lines=40
     set columns=140
   else
-    colorscheme frood
+    colorscheme landscape
   end
 elseif $TERM =~ '^xterm-'
   set t_Co=16
-  colorscheme frood
+  colorscheme landscape
 elseif $TERM =~ '^xterm$'
   set t_Co=8
   colorscheme frood
@@ -245,12 +266,12 @@ cmap w!! %!sudo tee > /dev/null %
 "noremap <F5> :w<CR>
 "imap <F5> <ESC>:w<CR>
 
-noremap <D-r> :!ruby %<CR>
-map <leader>r :!ruby %<CR>
+"noremap <D-r> :!ruby %<CR>
+"map <leader>r :!ruby %<CR>
 
 "Buffer next,previous (ctrl-{n,p})
-noremap  :bn<CR>
-noremap  :bp<CR>
+"noremap  :bn<CR>
+"noremap  :bp<CR>
 
 
 ""netrw stuff
@@ -399,7 +420,7 @@ if has("autocmd")
   " (happens when dropping a file on gvim).
   autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
+    \   exe "normal! g`\"" |
     \ endif
   augroup END
 else
@@ -410,8 +431,7 @@ endif " has("autocmd")
 au BufWrite /private/tmp/crontab.*,/tmp/crontab.*,/dev/shm/* set nowritebackup nobackup
 
 " We don't want a swap file and backup for these "private" files
-autocmd BufReadPre,FileReadPre,BufWrite *encrypted*,*credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private*,.chef/*,~/.mutt/private/*,~/.vim/tracserverlist \
-  set viminfo= nowritebackup nobackup noswapfile
+autocmd BufReadPre,FileReadPre,BufWrite *encrypted*,*credentials*,*authinfo*,.authinfo*,*pass,pass,pass.*,*private*,.chef/*,~/.mutt/private/*,~/.vim/tracserverlist set viminfo= nowritebackup nobackup noswapfile
 
 " set up syntax highlighting for my e-mail
 au BufRead,BufNewFile .followup,.article,.letter,/tmp/pico*,nn.*,snd.*,/tmp/mutt*,sup.* :set ft=mail 
