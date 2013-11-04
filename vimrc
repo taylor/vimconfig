@@ -134,6 +134,7 @@ Bundle 'mattn/gist-vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 "Bundle 'nixternal/taskwarrior-vim'
+Bundle 'vim-scripts/Conque-Shell'
 
 "utils-l9 -- UNKNOWN
 "utils-tracwiki -- UNKNOWN
@@ -260,6 +261,12 @@ elseif $TERM =~ '^xterm$'
   colorscheme frood
 endif
 
+"autocmd InsertEnter * set cul cuc
+"autocmd InsertLeave * set nocul nocuc
+"autocmd FocusGained * set cul cuc
+"autocmd FocusLost * set nocul nocuc
+     
+
 " If I forgot to sudo vim a file, do that with :w!!
 cmap w!! %!sudo tee > /dev/null %
 
@@ -376,6 +383,8 @@ if version >= 700
   nmap ,nn :NERDTreeTabsToggle<cr>
   "map <leader>n :NERDTreeTabsToggle<cr>
 end
+
+let g:ConqueTerm_ReadUnfocused = 1
 
 nmap <LocalLeader>zz :ZoomWin<cr>
 nmap <c-w>z :ZoomWin<CR>
