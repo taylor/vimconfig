@@ -71,7 +71,8 @@ Bundle 'scrooloose/syntastic'
 Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
 Bundle 'tomtom/tlib_vim'
-"Bundle 'carlosgaldino/elixir-snippets'
+Bundle 'BjRo/vim-extest'
+Bundle 'carlosgaldino/elixir-snippets'
 "Bundle 'taylor/vim-ixxspec' " run specs in tmux
 "Bundle 'sunaku/vim-ruby-minitest'
 "Bundle 'duskhacker/sweet-rspec-vim'
@@ -232,6 +233,12 @@ endif
 " Ctrl-/ will turn off highlight (until next search)
 map <silent> :noh<cr>
 
+" toggle paste
+set pastetoggle=<C-\\>
+"nmap <leader>P :set invpaste<CR>
+"imap <leader>P :set invpaste<CR>
+"nmap <C-\\> :set invpaste<CR>
+"imap <C-\\> :set invpaste<CR>
 
 " Move faster
 map <C-j> <C-d>
@@ -371,6 +378,14 @@ let Tlist_Compact_Format=0
 let Tlist_WinWidth=28
 let Tlist_Exit_OnlyWindow=1
 let Tlist_File_Fold_Auto_Close = 1
+
+map <leader>Tf :ExTestRunFile<CR>
+map <leader>Tm :ExTestRunMethod<CR>
+map <leader>Tl :ExTestRunLast<CR>
+let g:extest_exunit_run_file_cmd = "mix test '%f'"
+let g:extest_exunit_run_test_cmd = "mix test '%f'"
+"let g:extest_amrita_run_file_cmd = "mix amrita '%f'"
+"let g:extest_amrita_run_test_cmd = "mix amrita '%f:%l'"
 
 if version >= 700
   let NERDTreeIgnore=['\~$', '^\.git', '\.swp$', '\.DS_Store$']
