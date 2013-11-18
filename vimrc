@@ -119,7 +119,7 @@ Bundle 'itchyny/lightline.vim'
 Bundle 'itchyny/landscape.vim'
 
 "" === Pairing
-Bundle 'Floobits/floobits-vim'
+"Bundle 'Floobits/floobits-vim'
 "mail-notmuch -- UNKNOWN
 "misc-taylor -- UNKNOWN
 "syntax-tmux -- UNKNOWN
