@@ -98,7 +98,7 @@ Bundle 'httplog'
 "" === Color schemes
 "colors-bnelson-less -- UNKNOWN
 Bundle 'rking/vim-detailed'
-Bundle 'git@bitbucket.org:kisom/eink.vim.git'
+"Bundle 'git@bitbucket.org:kisom/eink.vim.git'
 Bundle 'chmllr/vim-colorscheme-elrodeo'
 Bundle 'ianremmler/frood'
 Bundle 'nielsmadan/harlequin'
