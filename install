@@ -1,0 +1,9 @@
+mkdir -p ~/.vim
+mkdir -p ~/.vim/backup
+wget -O ~/.vim/vimrc https://raw.github.com/taylor/vimconfig/master/vimrc
+ln -s ~/.vim/vimrc ~/.vimrc
+wget -O ~/.vim/vimrc-statusline https://raw.github.com/taylor/vimconfig/master/vimrc-statusline
+
+echo "Starting vim to finish"
+sleep 1
+vim
