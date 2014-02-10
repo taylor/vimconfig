@@ -37,6 +37,14 @@
 
 set nocompatible
 
+" Download statusline config
+if !filereadable(expand("$HOME/.vim/vimrc-statusline"))
+  echo "Installing statuline config..."
+  echo ""
+  execute 'silent !curl -kqs -o "' . expand('$HOME/.vim/vimrc-statusline') . '" https://raw.github.com/taylor/vimconfig/master/vimrc-statusline'
+endif
+
+" Install Vundle plugin manager
 let has_vundle=1
 if !filereadable(expand("$HOME/.vim/bundle/vundle/autoload/vundle.vim"))
     echo "Installing Vundle..."
@@ -48,6 +56,7 @@ if !filereadable(expand("$HOME/.vim/bundle/vundle/autoload/vundle.vim"))
     let has_vundle=0
 endif
 
+" Use pathogen if installed
 if filereadable(expand("$HOME/.vim/bundle/vim-pathogen/autoload/pathogen.vim"))
   source ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
   call pathogen#infect()
