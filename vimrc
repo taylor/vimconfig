@@ -3,9 +3,8 @@
 " from $HOME/.vim/vimrc to $HOME/.vimrc
 "
 " INSTALL:
-"   * mkdir -p ~/.vim
+"   * mkdir -p ~/.vim/backup
 "   * wget -O ~/.vim/vimrc https://raw.github.com/taylor/vimconfig/master/vimrc
-"   * ln -s ~/.vim/vimrc ~/.vimrc
 "   * vim
 "
 " TIPS:
