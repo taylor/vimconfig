@@ -74,6 +74,7 @@ Bundle 'MarcWeber/vim-addon-mw-utils'
 
 "" === Development
 Bundle 'scrooloose/syntastic'
+Bundle 'rking/ag.vim'
 "Bundle 'msanders/snipmate.vim'
 "Bundle 'garbas/vim-snipmate'
 "Bundle 'MarcWebe/UltiSnips'
@@ -128,14 +129,14 @@ Bundle 'itchyny/lightline.vim'
 Bundle 'itchyny/landscape.vim'
 
 "" === Pairing
-"Bundle 'Floobits/floobits-vim'
+Bundle 'Floobits/floobits-vim'
 "mail-notmuch -- UNKNOWN
 "misc-taylor -- UNKNOWN
 "syntax-tmux -- UNKNOWN
 "utils-conque_2.3 -- UNKNOWN
 
 " Extra functionality
-"Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'taylor/vim-zoomwin'
 "Bundle 'maba/vim-markdown-preview'
 Bundle 'kien/ctrlp.vim'
@@ -183,6 +184,9 @@ syntax on
 filetype on           " Enable filetype detection
 filetype indent on    " Enable filetype-specific indenting
 filetype plugin on    " Enable filetype-specific plugins
+
+
+vmap p p:let @"=@0<CR> " keep the copied text ready to paste again when pasting in visual mode instead of copying the newly replaced text
 
 set scrolloff=3 " lines above/below cursor
 
