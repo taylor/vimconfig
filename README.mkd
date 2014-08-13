@@ -8,7 +8,7 @@ INSTALL:
 =======
 
   * mkdir -p ~/.vim/backup
-  * wget -O ~/.vim/vimrc https://raw.github.com/taylor/vimconfig/master/vimrc
+  * wget -O ~/.vim/vimrc https://raw.githubusercontent.com/taylor/vimconfig/master/vimrc
   * vim
     - it will install and run Vundle + other desired vim scripts
 

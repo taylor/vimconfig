@@ -4,7 +4,7 @@
 "
 " INSTALL:
 "   * mkdir -p ~/.vim/backup
-"   * wget -O ~/.vim/vimrc https://raw.github.com/taylor/vimconfig/master/vimrc
+"   * wget -O ~/.vim/vimrc https://raw.githubusercontent.com/taylor/vimconfig/master/vimrc
 "   * vim
 "
 " TIPS:
@@ -40,7 +40,7 @@ set nocompatible
 if !filereadable(expand("$HOME/.vim/vimrc-statusline"))
   echo "Installing statuline config..."
   echo ""
-  execute 'silent !curl -kqs -o "' . expand('$HOME/.vim/vimrc-statusline') . '" https://raw.github.com/taylor/vimconfig/master/vimrc-statusline'
+  execute 'silent !curl -kqs -o "' . expand('$HOME/.vim/vimrc-statusline') . '" https://raw.githubusercontent.com/taylor/vimconfig/master/vimrc-statusline'
 endif
 
 " Install Vundle plugin manager
@@ -128,13 +128,14 @@ Bundle 'itchyny/lightline.vim'
 Bundle 'itchyny/landscape.vim'
 
 "" === Pairing
-Bundle 'Floobits/floobits-vim'
+"Bundle 'Floobits/floobits-vim'
 "mail-notmuch -- UNKNOWN
 "misc-taylor -- UNKNOWN
 "syntax-tmux -- UNKNOWN
 "utils-conque_2.3 -- UNKNOWN
 
 " Extra functionality
+
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'taylor/vim-zoomwin'
 "Bundle 'maba/vim-markdown-preview'
