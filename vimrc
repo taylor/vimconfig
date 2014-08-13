@@ -185,7 +185,8 @@ filetype indent on    " Enable filetype-specific indenting
 filetype plugin on    " Enable filetype-specific plugins
 
 
-vmap p p:let @"=@0<CR> " keep the copied text ready to paste again when pasting in visual mode instead of copying the newly replaced text
+xnoremap p p:let @"=@0<CR> " keep the copied text ready to paste again when pasting in visual mode instead of copying the newly replaced text
+"xnoremap <expr> p (v:register == '"') ? '"0p' : 'p' " only paste from 0 register if default register is used.  NOTE: if delete is used pasting from 1 is required
 
 set scrolloff=3 " lines above/below cursor
 
@@ -197,6 +198,9 @@ set timeoutlen=450  " Time to wait after ESC (default causes an annoying delay)
 set modelines=0               " no modelines [http://www.guninski.com/vim1.html]
 let g:secure_modelines_verbose=0 " securemodelines vimscript
 let g:secure_modelines_modelines = 15 " 15 available modelines
+
+" Gist should be private/secret (-p) by default. -P is public
+let g:gist_post_private = 1
 
 
 set splitbelow " split below w/focus
@@ -497,4 +501,7 @@ set foldlevelstart=99
 "noremap  :bn<CR>
 "noremap  :bp<CR>
 
-so ~/.vim/vimrc-statusline
+
+if filereadable(expand("$HOME/.vim/vimrc-statusline"))
+  so ~/.vim/vimrc-statusline
+endif
