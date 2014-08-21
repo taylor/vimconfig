@@ -195,7 +195,7 @@ endif
 " endif
 
 "Don't run Sy by default. You can toggle it anytime via :SignifyToggle.
-let g:signify_disable_by_default = 0
+let g:signify_disable_by_default = 1
 
 let g:signify_vcs_list = [ 'git' ]
 
