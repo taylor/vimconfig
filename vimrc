@@ -5,7 +5,7 @@
 " INSTALL:
 "   * mkdir -p ~/.vim/backup
 "   * wget -O ~/.vim/vimrc https://raw.githubusercontent.com/taylor/vimconfig/master/vimrc
-"   * vim
+"   * vim +PluginInstall +qall
 "
 " TIPS:
 "   "*p to paste from system copy buffer
@@ -23,35 +23,32 @@
 "               :TWOpen <WikiPage>    - Open the wiki View
 "               :TWSave "<Comment>"   - Saves the Active Wiki Page
 "
+"   <Leader>      => \
+"   <LocalLeader> => ,
+"
 "   NERDTree and Taglist:
 "      " ,tt will toggle taglist on and off
 "      nmap <LocalLeader>tt :Tlist<cr>
 "      " ,nn will toggle NERDTree on and off
 "      nmap <LocalLeader>nn :NERDTreeToggle<cr>
-"      nmap ,nn :NERDTreeToggle<cr>
-"      map <leader>n :NERDTreeToggle<cr>
+"      nmap ,nn :NERDTreeTabsToggle<cr>
+"      map <leader>n :NERDTreeTabsToggle<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set nocompatible
 
-" Download statusline config
-if !filereadable(expand("$HOME/.vim/vimrc-statusline"))
-  echo "Installing statuline config..."
-  echo ""
-  execute 'silent !curl -kqs -o "' . expand('$HOME/.vim/vimrc-statusline') . '" https://raw.githubusercontent.com/taylor/vimconfig/master/vimrc-statusline'
-endif
-
 " Install Vundle plugin manager
 let has_vundle=1
-if !filereadable(expand("$HOME/.vim/bundle/vundle/autoload/vundle.vim"))
+if !filereadable(expand("$HOME/.vim/bundle/Vundle.vim/autoload/vundle.vim"))
     echo "Installing Vundle..."
     echo ""
     if isdirectory(expand('$HOME/.vim/bundle')) == 0
         call mkdir(expand('$HOME/.vim/bundle'), 'p')
     endif
-    execute 'silent !git clone https://github.com/gmarik/vundle "' . expand('$HOME/.vim/bundle/vundle') . '"'
+    execute 'silent !git clone https://github.com/gmarik/Vundle.vim.git "' . expand('$HOME/.vim/bundle/Vundle.vim') . '"'
+    "execute 'silent !git clone https://github.com/gmarik/vundle "' . expand('$HOME/.vim/bundle/vundle') . '"'
     let has_vundle=0
 endif
 
@@ -62,74 +59,76 @@ if filereadable(expand("$HOME/.vim/bundle/vim-pathogen/autoload/pathogen.vim"))
 endif
 
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim/
+"call vundle#rc()
+call vundle#begin()
 
-Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-pathogen'
+Plugin 'gmarik/Vundle.vim'
+Plugin 'tpope/vim-pathogen'
 
 "" === Utils
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'taylor/git-grep-vim'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'taylor/git-grep-vim'
 
 "" === Development
-Bundle 'scrooloose/syntastic'
-Bundle 'rking/ag.vim'
-"Bundle 'msanders/snipmate.vim'
-"Bundle 'garbas/vim-snipmate'
-"Bundle 'MarcWebe/UltiSnips'
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
-Bundle 'tomtom/tlib_vim'
-Bundle 'BjRo/vim-extest'
-Bundle 'carlosgaldino/elixir-snippets'
-"Bundle 'taylor/vim-ixxspec' " run specs in tmux
-"Bundle 'sunaku/vim-ruby-minitest'
-"Bundle 'duskhacker/sweet-rspec-vim'
-"TEMP Bundle 'gregsexton/gitv' " gitk like thing for vim
-Bundle 'xaviershay/tslime.vim'
-"Bundle 'actionshrimp/vim-xpath'
-Bundle 'tomtom/tcomment_vim'
-"Bundle 'ianremmler/comment' " Code comments
-"Bundle 'scrooloose/nerdcommenter'
-"Bundle 'sukima/xmledit'
-Bundle 'vim-scripts/Align'
+Plugin 'scrooloose/syntastic'
+Plugin 'rking/ag.vim'
+"Plugin 'msanders/snipmate.vim'
+"Plugin 'garbas/vim-snipmate'
+"Plugin 'MarcWebe/UltiSnips'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'tomtom/tlib_vim'
+Plugin 'BjRo/vim-extest'
+Plugin 'carlosgaldino/elixir-snippets'
+"Plugin 'taylor/vim-ixxspec' " run specs in tmux
+"Plugin 'sunaku/vim-ruby-minitest'
+"Plugin 'duskhacker/sweet-rspec-vim'
+"TEMP Plugin 'gregsexton/gitv' " gitk like thing for vim
+Plugin 'xaviershay/tslime.vim'
+"Plugin 'actionshrimp/vim-xpath'
+Plugin 'tomtom/tcomment_vim'
+"Plugin 'ianremmler/comment' " Code comments
+"Plugin 'scrooloose/nerdcommenter'
+"Plugin 'sukima/xmledit'
+Plugin 'vim-scripts/Align'
 " Git
-Bundle 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 
 "" === Syntax
-"TEMP Bundle 'tpope/vim-cucumber' " cucumber syntax
-"TEMP Bundle 'taylor/vim-mswebdev' " ms web dev syntax crap
-Bundle 'mjwall/clj-vim'
-Bundle 'elixir-lang/vim-elixir'
-Bundle 'heartsentwined/vim-ember-script'
-Bundle 'httplog'
+"TEMP Plugin 'tpope/vim-cucumber' " cucumber syntax
+"TEMP Plugin 'taylor/vim-mswebdev' " ms web dev syntax crap
+Plugin 'mjwall/clj-vim'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'heartsentwined/vim-ember-script'
+Plugin 'httplog'
 
 "" === Color schemes
 "colors-bnelson-less -- UNKNOWN
-Bundle 'rking/vim-detailed'
-"Bundle 'git@bitbucket.org:kisom/eink.vim.git'
-Bundle 'chmllr/vim-colorscheme-elrodeo'
-Bundle 'ianremmler/frood'
-Bundle 'nielsmadan/harlequin'
+Plugin 'rking/vim-detailed'
+"Plugin 'git@bitbucket.org:kisom/eink.vim.git'
+Plugin 'chmllr/vim-colorscheme-elrodeo'
+Plugin 'ianremmler/frood'
+Plugin 'nielsmadan/harlequin'
 "colors-ixxcolors -- UNKNOWN
 "colors-lettuce -- UNKNOWN
-Bundle 'plynch/maltese'
+Plugin 'plynch/maltese'
 "colors-misc -- UNKNOWN
 "colors-smyck -- UNKNOWN
-Bundle 'altercation/vim-colors-solarized'
+Plugin 'altercation/vim-colors-solarized'
 "colors-syntaxless-kyle -- UNKNOWN
-Bundle 'tir_black'
-Bundle 'nanotech/jellybeans.vim'
+Plugin 'tir_black'
+Plugin 'nanotech/jellybeans.vim'
 "colors-vayn-schemes -- UNKNOWN
+Plugin 'taylor/colors-misc.vim'
 
 " More look and feel
-"Bundle 'Lokaltog/vim-powerline'
-Bundle 'itchyny/lightline.vim'
-Bundle 'itchyny/landscape.vim'
+"Plugin 'Lokaltog/vim-powerline'
+Plugin 'itchyny/lightline.vim'
+Plugin 'itchyny/landscape.vim'
 
 "" === Pairing
-"Bundle 'Floobits/floobits-vim'
+"Plugin 'Floobits/floobits-vim'
 "mail-notmuch -- UNKNOWN
 "misc-taylor -- UNKNOWN
 "syntax-tmux -- UNKNOWN
@@ -138,56 +137,68 @@ Bundle 'itchyny/landscape.vim'
 " Extra functionality
 
 "" readline key bindings:
-Bundle 'tpope/vim-rsi'
+Plugin 'tpope/vim-rsi'
 
 " auto-completion everywhere
-Bundle 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 
-Bundle 'taylor/vim-zoomwin'
-"Bundle 'maba/vim-markdown-preview'
+Plugin 'taylor/vim-zoomwin'
+"Plugin 'maba/vim-markdown-preview'
 
-Bundle 'kien/ctrlp.vim'
+Plugin 'kien/ctrlp.vim'
 "utils-fuzzyfinder -- UNKNOWN
-Bundle 'mattn/gist-vim'
+Plugin 'mattn/gist-vim'
 
 " directory browser side-bar
-Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
 
-"Bundle 'nixternal/taskwarrior-vim'
-"Bundle 'vim-scripts/Conque-Shell'
-
-" visual highlighting done easy: v v v
-Bundle 'terryma/vim-expand-region'
+"Plugin 'nixternal/taskwarrior-vim'
+"Plugin 'vim-scripts/Conque-Shell'
 
 "utils-l9 -- UNKNOWN
 "utils-tracwiki -- UNKNOWN
-Bundle 'http://repo.or.cz/r/vcscommand.git'
-"Bundle 'nsmgr8/vitra' "-- Trac UI
-"Bundle 'mattn/webapi-vim' "-- used by gist, vitra, etc
-Bundle 'mattn/webapi-vim'
-Bundle 'smerrill/vagrant-vim'
-Bundle 'expelledboy/vim-erl-mode'
-"Bundle 'tpope/vim-five'
-Bundle 'taq/vim-git-branch-info'
-Bundle 'git://gitorious.org/vim-gnupg/vim-gnupg.git'
+Plugin 'http://repo.or.cz/r/vcscommand.git'
+"Plugin 'nsmgr8/vitra' "-- Trac UI
+"Plugin 'mattn/webapi-vim' "-- used by gist, vitra, etc
+Plugin 'mattn/webapi-vim'
+Plugin 'smerrill/vagrant-vim'
+Plugin 'expelledboy/vim-erl-mode'
+"Plugin 'tpope/vim-five'
+Plugin 'taq/vim-git-branch-info'
+Plugin 'git://gitorious.org/vim-gnupg/vim-gnupg.git'
 "vim-pandoc -- 
+Plugin 'taylor/taglist.vim'
+
+"" Expriementing:
+Plugin 'terryma/vim-expand-region'
+Plugin 'mhinz/vim-signify'
+
+call vundle#end()
 
 if has_vundle == 0
-    echo "Installing Bundles, please ignore key map error messages"
+    echo "Installing Plugins, please ignore key map error messages"
     echo ""
-    :BundleInstall
+    :PluginInstall
 endif
 
-"" === Bundles not available on github or else where
+"" === Plugins not available on github or else where
+
+"" NOTE:   made a copy at https://github.com/taylor/taglist.vim
 "   taglist.vim - http://www.vim.org/scripts/script.php?script_id=273
-let taglist_url = "http://vim.sourceforge.net/scripts/download_script.php?src_id=19574"
-if !filereadable(expand("$HOME/.vim/bundle/taglist/plugin/taglist.vim"))
-  echo "Installing taglist.vim"
-  execute 'silent !mkdir -p "' . expand("$HOME/.vim/bundle/taglist/") . '"'
-  execute 'silent !wget -O taglist.zip "' . taglist_url . '"'
-  execute 'silent !unzip taglist.zip -d "' . expand("$HOME/.vim/bundle/taglist/") . '"'
-endif
+" let taglist_url = "http://vim.sourceforge.net/scripts/download_script.php?src_id=19573"
+" if !filereadable(expand("$HOME/.vim/bundle/taglist/plugin/taglist.vim"))
+"   echo "Installing taglist.vim"
+"   execute 'silent !mkdir -p "' . expand("$HOME/.vim/bundle/taglist/") . '"'
+"   execute 'silent !wget -O $HOME/.vim/taglist.zip "' . taglist_url . '"'
+"   execute 'silent !unzip taglist.zip -d "' . expand("$HOME/.vim/bundle/taglist/") . '"'
+" endif
+
+"Don't run Sy by default. You can toggle it anytime via :SignifyToggle.
+let g:signify_disable_by_default = 0
+
+let g:signify_vcs_list = [ 'git' ]
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -533,9 +544,20 @@ set foldlevelstart=99
 "noremap  :bn<CR>
 "noremap  :bp<CR>
 
-if filereadable(expand("$HOME/.vim/vimrc-statusline"))
-  so ~/.vim/vimrc-statusline
+
+" Download statusline config
+if !filereadable(expand("$HOME/.vim/vimrc-statusline"))
+  echo "Installing statuline config..."
+  echo ""
+  execute 'silent !curl -kqs -o "' . expand('$HOME/.vim/vimrc-statusline') . '" https://raw.githubusercontent.com/taylor/vimconfig/master/vimrc-statusline'
 endif
+
+
+if filereadable(expand("$HOME/.vim/vimrc-statusline"))
+ so ~/.vim/vimrc-statusline
+endif
+
+"Plugin 'bling/vim-airline'
 
 if filereadable(expand("$HOME/.vim/testingstuff.vim"))
   echo ""

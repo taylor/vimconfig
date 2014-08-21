@@ -22,7 +22,8 @@ vmap <Leader>P "+P
 " visual line mode
 nmap <Leader><Leader> V
 
-Bundle 'terryma/vim-expand-region'
+"Bundle 'terryma/vim-expand-region'
+" visual highlighting done easy: v v v
 " v one char, vv to get a word, vvv to get paragraph
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
