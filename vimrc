@@ -98,9 +98,10 @@ Plugin 'tpope/vim-fugitive'
 "" === Syntax
 "TEMP Plugin 'tpope/vim-cucumber' " cucumber syntax
 "TEMP Plugin 'taylor/vim-mswebdev' " ms web dev syntax crap
-Plugin 'mjwall/clj-vim'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'heartsentwined/vim-ember-script'
+Plugin 'sheerun/vim-polyglot'
+"Plugin 'mjwall/clj-vim'
+"Plugin 'elixir-lang/vim-elixir'
+"Plugin 'heartsentwined/vim-ember-script'
 Plugin 'httplog'
 
 "" === Color schemes
@@ -170,9 +171,12 @@ Plugin 'git://gitorious.org/vim-gnupg/vim-gnupg.git'
 "vim-pandoc -- 
 Plugin 'taylor/taglist.vim'
 
-"" Expriementing:
+"" Experimenting:
 Plugin 'terryma/vim-expand-region'
 Plugin 'mhinz/vim-signify'
+
+" press - to open a dir listing, press again to go up a dir
+Plugin 'dhruvasagar/vim-vinegar'
 
 call vundle#end()
 
@@ -363,12 +367,12 @@ endif
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude=vendor/ --exclude-standard', 'find %s -type f']
 let g:ctrlp_use_caching = 0
 
-"" More emacs
-map <C-x>2 :split<CR>
-map <C-x>3 :vsplit<CR>
-
-map <C-x>0 :close<CR>
-map <C-x>1 :only<CR>
+" "" More emacs
+" map <C-x>2 :split<CR>
+" map <C-x>3 :vsplit<CR>
+" 
+" map <C-x>0 :close<CR>
+" map <C-x>1 :only<CR>
 
 
 " vim trac plugin
@@ -457,6 +461,8 @@ if version >= 700
   nmap ,nn :NERDTreeTabsToggle<cr>
   "map <leader>n :NERDTreeTabsToggle<cr>
 end
+
+let NERDTreeHijackNetrw=1
 
 "let g:ConqueTerm_ReadUnfocused = 1
 
