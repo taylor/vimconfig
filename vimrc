@@ -70,6 +70,7 @@ Bundle 'tpope/vim-pathogen'
 
 "" === Utils
 Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'taylor/git-grep-vim'
 
 "" === Development
 Bundle 'scrooloose/syntastic'
@@ -136,16 +137,28 @@ Bundle 'itchyny/landscape.vim'
 
 " Extra functionality
 
+"" readline key bindings:
+Bundle 'tpope/vim-rsi'
+
+" auto-completion everywhere
 Bundle 'Valloric/YouCompleteMe'
+
 Bundle 'taylor/vim-zoomwin'
 "Bundle 'maba/vim-markdown-preview'
+
 Bundle 'kien/ctrlp.vim'
 "utils-fuzzyfinder -- UNKNOWN
 Bundle 'mattn/gist-vim'
+
+" directory browser side-bar
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
+
 "Bundle 'nixternal/taskwarrior-vim'
-Bundle 'vim-scripts/Conque-Shell'
+"Bundle 'vim-scripts/Conque-Shell'
+
+" visual highlighting done easy: v v v
+Bundle 'terryma/vim-expand-region'
 
 "utils-l9 -- UNKNOWN
 "utils-tracwiki -- UNKNOWN
@@ -261,6 +274,11 @@ set pastetoggle=<C-\\>
 map <C-j> <C-d>
 map <C-k> <C-u>
 
+" v one char, vv to get a word, vvv to get paragraph
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+"
 set background=dark 
 if $TERM =~ '256'
   set t_Co=256
@@ -325,9 +343,22 @@ let maplocalleader = ","
 " " in the same dir as the current buffer's file.
 if has("unix")
   map <LocalLeader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+  " For emacs
+  map <C-x>d :e <C-R>=expand("%:p:h") . "/" <CR>
 else
   map <LocalLeader>e :e <C-R>=expand("%:p:h") . "\\" <CR>
 endif
+
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude=vendor/ --exclude-standard', 'find %s -type f']
+let g:ctrlp_use_caching = 0
+
+"" More emacs
+map <C-x>2 :split<CR>
+map <C-x>3 :vsplit<CR>
+
+map <C-x>0 :close<CR>
+map <C-x>1 :only<CR>
+
 
 " vim trac plugin
 let g:tracServerList = {}       
@@ -346,35 +377,35 @@ map <LocalLeader>tn :tabnext<cr>     " next tab
 map <LocalLeader>tp :tabprev<cr>     " previous tab
 map <LocalLeader>tm :tabmove         " move a tab to a new location
 
-" fuzzy finder textmate
-if has("ruby")
-  "map <leader>f :FuzzyFinderTextMate<CR>
-  map <leader>f :FufFile<CR>
-
-  " Autocomplete
-  autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-  autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-  autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-  autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-  "improve autocomplete menu color
-  highlight Pmenu ctermbg=238 gui=bold
-else
-  map <leader>f :FuzzyFinderFile<CR>
-end
-
-" BufExplorer
-map <LocalLeader>bb :BufExplorer<CR>
- 
+" " fuzzy finder textmate
+" if has("ruby")
+"   "map <leader>f :FuzzyFinderTextMate<CR>
+"   map <leader>f :FufFile<CR>
+" 
+"   " Autocomplete
+"   autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+"   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+"   autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+"   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+"   "improve autocomplete menu color
+"   highlight Pmenu ctermbg=238 gui=bold
+" else
+"   map <leader>f :FuzzyFinderFile<CR>
+" end
+" 
+" " BufExplorer
+" map <LocalLeader>bb :BufExplorer<CR>
+"  
 " ---------------------------------------------------------------------------
 "  configuration for fuzzyfinder
 " find in buffer is ,fb
-nmap <LocalLeader>fb :FuzzyFinderBuffer<CR>
-" find in file is ,ff
-nmap <LocalLeader>ff :FufFileWithCurrentBufferDir<CR>
-"nmap <LocalLeader>ff :FufFile<CR>
-"nmap <LocalLeader>ff :FuzzyFinderFile<CR>
-" find in tag is ,ft
-nmap <LocalLeader>ft :FufBufferTag<CR>
+" nmap <LocalLeader>fb :FuzzyFinderBuffer<CR>
+" " find in file is ,ff
+" nmap <LocalLeader>ff :FufFileWithCurrentBufferDir<CR>
+" "nmap <LocalLeader>ff :FufFile<CR>
+" "nmap <LocalLeader>ff :FuzzyFinderFile<CR>
+" " find in tag is ,ft
+" nmap <LocalLeader>ft :FufBufferTag<CR>
 "nmap <LocalLeader>ft :FuzzyFinderTag<CR>
 
 " ---------------------------------------------------------------------------
@@ -416,10 +447,10 @@ if version >= 700
   "map <leader>n :NERDTreeTabsToggle<cr>
 end
 
-let g:ConqueTerm_ReadUnfocused = 1
+"let g:ConqueTerm_ReadUnfocused = 1
 
-nmap <LocalLeader>zz :ZoomWin<cr>
-nmap <c-w>z :ZoomWin<CR>
+"nmap <LocalLeader>zz :ZoomWin<cr>
+"nmap <c-w>z :ZoomWin<CR>
 
 compiler ruby
 "compiler python
@@ -502,7 +533,13 @@ set foldlevelstart=99
 "noremap  :bn<CR>
 "noremap  :bp<CR>
 
-
 if filereadable(expand("$HOME/.vim/vimrc-statusline"))
   so ~/.vim/vimrc-statusline
+endif
+
+if filereadable(expand("$HOME/.vim/testingstuff.vim"))
+  echo ""
+  echo "Looking like we have some test vim plugins to playwith in testingstuff.vim..."
+  echo ""
+  so ~/.vim/testingstuff.vim
 endif
