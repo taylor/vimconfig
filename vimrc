@@ -69,23 +69,28 @@ Plugin 'tpope/vim-pathogen'
 "" === Utils
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'taylor/git-grep-vim'
+Plugin 'rking/ag.vim'
+" lots of other plugins depend on tlib_vim
+Plugin 'tomtom/tlib_vim'
 
 "" === Development
 Plugin 'scrooloose/syntastic'
-Plugin 'rking/ag.vim'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'vim-scripts/matchit.zip'
+Plugin 'vim-scripts/ruby-matchit'
 "Plugin 'msanders/snipmate.vim'
 "Plugin 'garbas/vim-snipmate'
 "Plugin 'MarcWebe/UltiSnips'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'tomtom/tlib_vim'
 Plugin 'BjRo/vim-extest'
 Plugin 'carlosgaldino/elixir-snippets'
 "Plugin 'taylor/vim-ixxspec' " run specs in tmux
 "Plugin 'sunaku/vim-ruby-minitest'
 "Plugin 'duskhacker/sweet-rspec-vim'
 "TEMP Plugin 'gregsexton/gitv' " gitk like thing for vim
-Plugin 'xaviershay/tslime.vim'
+" https://github.com/lord-garbage/tslime.vim
+Plugin 'lord-garbage/tslime.vim'
 "Plugin 'actionshrimp/vim-xpath'
 Plugin 'tomtom/tcomment_vim'
 "Plugin 'ianremmler/comment' " Code comments
@@ -98,7 +103,6 @@ Plugin 'tpope/vim-fugitive'
 "" === Syntax
 "TEMP Plugin 'tpope/vim-cucumber' " cucumber syntax
 "TEMP Plugin 'taylor/vim-mswebdev' " ms web dev syntax crap
-Plugin 'sheerun/vim-polyglot'
 "Plugin 'mjwall/clj-vim'
 "Plugin 'elixir-lang/vim-elixir'
 "Plugin 'heartsentwined/vim-ember-script'
@@ -172,8 +176,10 @@ Plugin 'git://gitorious.org/vim-gnupg/vim-gnupg.git'
 Plugin 'taylor/taglist.vim'
 
 "" Experimenting:
-Plugin 'terryma/vim-expand-region'
-Plugin 'mhinz/vim-signify'
+" See testingstuff.vim
+if filereadable(expand("$HOME/.vim/testingstuff-plugins.vim"))
+  source ~/.vim/testingstuff-plugins.vim
+endif
 
 " press - to open a dir listing, press again to go up a dir
 Plugin 'dhruvasagar/vim-vinegar'

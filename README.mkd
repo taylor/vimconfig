@@ -30,6 +30,11 @@ TIPS:
                :TWOpen <WikiPage>    - Open the wiki View
                :TWSave "<Comment>"   - Saves the Active Wiki Page
 
+
+   <Leader>      => \
+   <LocalLeader> => ,
+
+
    NERDTree and Taglist:
       " ,tt will toggle taglist on and off
       nmap <LocalLeader>tt :Tlist<cr>

@@ -1,3 +1,16 @@
+" if filereadable(expand("$HOME/.vim/testingstuff-plugins.vim"))
+"   source ~/.vim/testingstuff-plugins.vim
+" endif
+" call vundle#begin()
+" Plugin 'junegunn/limelight.vim'
+" Plugin 'terryma/vim-expand-region'
+" Plugin 'mhinz/vim-signify'
+" Plugin 'vim-scripts/diffchar.vim'
+" call vundle#end()
+
+
+
+
 let mapleader = "\<Space>"
 "let mapleader = "\<DEL>"
 
@@ -8,7 +21,7 @@ nnoremap <Leader>l <C-W>l
 " nnoremap <Leader>\| :vsplit<CR>
 " nnoremap <Leader>- :split<CR>
 
-noremap <Leader>n :NERDTreeTabsToggle<CR>
+nnoremap <Leader>n :NERDTreeTabsToggle<CR>
 nnoremap <Leader>o :NERDTreeTabsToggle<CR>
 nnoremap <Leader>w :w<CR>
 
@@ -22,7 +35,7 @@ vmap <Leader>P "+P
 " visual line mode
 nmap <Leader><Leader> V
 
-"Bundle 'terryma/vim-expand-region'
+"Plugin 'terryma/vim-expand-region'
 " visual highlighting done easy: v v v
 " v one char, vv to get a word, vvv to get paragraph
 vmap v <Plug>(expand_region_expand)
@@ -47,3 +60,14 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude=vendo
 let g:ctrlp_use_caching = 0
 
 nmap <Leader>z :ZoomWin<cr>
+
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+
+" Default: 0.5
+let g:limelight_default_coefficient = 0.7
