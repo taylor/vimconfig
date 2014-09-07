@@ -133,7 +133,6 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'itchyny/landscape.vim'
 
 "" === Pairing
-"Plugin 'Floobits/floobits-vim'
 "mail-notmuch -- UNKNOWN
 "misc-taylor -- UNKNOWN
 "syntax-tmux -- UNKNOWN
